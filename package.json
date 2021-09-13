@@ -4,7 +4,7 @@
   "description": "proyecto UpTaskNodeJS con Node y MVC",
   "main": "index.js",
   "scripts": {
-    "runServer": "nodemon ./index.js"
+    "dev": "nodemon ./index.js"
   },
   "author": "Ariel Sosa",
   "license": "ISC",

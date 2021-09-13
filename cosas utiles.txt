@@ -1,1 +1,0 @@
-1-solo con el package.json podemos re instalar node_modules, poniendo npm install
