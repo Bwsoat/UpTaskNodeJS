@@ -1,0 +1,28 @@
+{
+  "name": "uptasknodejs",
+  "version": "1.0.0",
+  "description": "proyecto UpTaskNodeJS con Node y MVC",
+  "main": "index.js",
+  "scripts": {
+    "runServer": "nodemon ./index.js"
+  },
+  "author": "Ariel Sosa",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^6.2.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "mysql2": "^2.3.0",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.5",
+    "shortid": "^2.2.16",
+    "slug": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "babel-loader": "^8.2.2",
+    "nodemon": "^2.0.12",
+    "webpack": "^5.52.1"
+  }
+}
