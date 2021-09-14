@@ -1,5 +1,6 @@
 //importamos nuestro modelo
 const { param } = require("express-validator");
+const Proyectos = require("../models/Proyectos");
 const modelo = require("../models/Proyectos");
 
 //exportamos el controlador
@@ -95,4 +96,15 @@ exports.actualizarProyecto = async (req, res)=>{
             {where: {id: req.params.id }});
         res.redirect("/");
     }
+}
+
+exports.eliminarProyecto = async (req, res, next)=>{
+    //req, params o query para leer los datos que mandamos al servidor
+    //console.log(req);
+    const {urlProyecto} = req.query;
+
+    const resultado = await Proyectos.destroy({where:{url: urlProyecto}});
+
+    //esto es lo que enviamos como respuesta a la eliminacion
+    res.send("El proyecto se ha eliminado");
 }
