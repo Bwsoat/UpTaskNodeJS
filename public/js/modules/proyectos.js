@@ -32,8 +32,15 @@ if(btnEliminar){
                         //redirecciona a al inicio despues de 3 segundos
                         setTimeout(()=>{
                             window.location.href ="/"
-                        }, 3000);
-                });
+                        }, 2000);
+                    })
+                    .catch(()=>{
+                        swal.fire({
+                            icon:"error",
+                            title:"Hubo un error",
+                            text: "No se pudo eliminar el Proyecto"
+                        })
+                    })
             }
         })
     });
