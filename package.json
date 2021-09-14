@@ -4,7 +4,9 @@
   "description": "proyecto UpTaskNodeJS con Node y MVC",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./index.js"
+    "dev": "nodemon ./index.js",
+    "start": "concurrently \"npm run dev \" \"npm run watch \" ",
+    "watch": "webpack -w --mode development"
   },
   "author": "Ariel Sosa",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "@babel/preset-env": "^7.15.6",
     "babel-loader": "^8.2.2",
     "nodemon": "^2.0.12",
-    "webpack": "^5.52.1"
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
   }
 }
