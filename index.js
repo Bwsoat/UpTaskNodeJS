@@ -14,6 +14,8 @@ const db = require("./config/db");
 
 //importamos el modelo sin la necesitas de usar un const
 require("./models/Proyectos");
+require("./models/Tareas");
+
 //usamos sync para crear nuestra tabla, authenticate para auntentificar la conexion
 db.sync()
     .then(()=> console.log("Conectado al Servidor"))

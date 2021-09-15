@@ -11,14 +11,17 @@ const shortid = require("shortid");
 //importamos nuestra base de datos
 const db = require("../config/db");
 
+//importamos tareas
+const tareas= require("./Tareas");
+
 const Proyectos = db.define("proyectos", {
-    id : {
-        type: sequelize.INTEGER,
+    id: {
+        type: sequelize.INTEGER(10),
         primaryKey: true,
         autoIncrement:true
     },
-    nombre : sequelize.STRING,
-    url: sequelize.STRING
+    nombre : sequelize.STRING(100),
+    url: sequelize.STRING(100)
 }, {//usamos hooks para correr funciones en determinado tiempo
     hooks:{
         beforeCreate(proyecto){
@@ -29,6 +32,6 @@ const Proyectos = db.define("proyectos", {
         }
     }
 });
-
+Proyectos.hasMany(tareas);
 //importamos el proyecto que acabamos de crear
 module.exports = Proyectos;
