@@ -11,9 +11,6 @@ const shortid = require("shortid");
 //importamos nuestra base de datos
 const db = require("../config/db");
 
-//importamos tareas
-const tareas= require("./Tareas");
-
 const Proyectos = db.define("proyectos", {
     id: {
         type: sequelize.INTEGER(10),
@@ -32,6 +29,5 @@ const Proyectos = db.define("proyectos", {
         }
     }
 });
-Proyectos.hasMany(tareas);
 //importamos el proyecto que acabamos de crear
 module.exports = Proyectos;
