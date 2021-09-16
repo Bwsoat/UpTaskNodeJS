@@ -1,6 +1,7 @@
 //importamos nuestro modelo
 const { param } = require("express-validator");
 const modelo = require("../models/Proyectos");
+const Tareas = require("../models/Tareas");
 
 //exportamos el controlador
 exports.proyectosHome = async(req, res)=>{
@@ -47,17 +48,28 @@ exports.nuevoProyecto = async (req, res)=>{
     }
 }
 exports.proyectoPorUrl = async(req, res, next)=>{
-    const proyectos = await modelo.findAll();
-    const proyecto = await modelo.findOne({
+    const proyectosPromise = await modelo.findAll();
+    const proyectoPromise = await modelo.findOne({
         where:{
             url: req.params.url
         }
     });
+
+    const [proyectos, proyecto] = await Promise.all([proyectosPromise, proyectoPromise]);
+
+    //Consultar tareas del Proyecto actual
+    const tareas = await Tareas.findAll({
+        where:{
+            proyectoId: proyecto.id
+        }
+    });
+
     if(!proyecto)return next()
     res.render("tareas", {
         nombrePagina:`Tareas del Proyecto`, 
         proyectos,
-        proyecto
+        proyecto,
+        tareas
     });
 }
 
