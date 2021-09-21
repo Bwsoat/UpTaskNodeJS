@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 //importar express validator, usamos check para usar metodos de validacion
-const {body} = require("express-validator");
+const {body, validationResult} = require("express-validator");
 
 //importamos los controladores
 const proyectoController = require("../controllers/proyectosController.js");
@@ -27,15 +27,21 @@ module.exports = function(){
     
     //Atualizar Proyecto
 
-    router.get("/proyecto/editar/:id", proyectoController.editarFormulario)
+    router.get("/proyecto/editar/:id", proyectoController.editarFormulario);
 
     router.post("/nuevo-proyecto/:id",
     body("nombre").not().isEmpty().trim().escape(),
     proyectoController.actualizarProyecto);
     //Eliminar Proyecto
-    router.delete("/proyectos/:url", proyectoController.eliminarProyecto)
+    router.delete("/proyectos/:url", proyectoController.eliminarProyecto);
     //Agregar tarea
-    router.post("/proyectos/:url", tareaController.agregarTarea)
+    router.post("/proyectos/:url", 
+    body("nombre").not().isEmpty().trim().escape(),
+    tareaController.agregarTarea);
+
+    //Actualizar Tarea - patch nos permite editar una parte de la tabla
+
+    router.patch("/tareas/:id", tareaController.cambiarEstadoTarea);
 
     return router;
 

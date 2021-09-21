@@ -2,7 +2,6 @@ extends layout
 block contenido
     .contenido-principal
         h1 #{nombrePagina} - #{proyecto.nombre}
-
         //TODO - Formulario aqui
         form.agregar-tarea(action=`/proyectos/${proyecto.url}` method="POST" )
             .campo
@@ -11,7 +10,24 @@ block contenido
             .campo.enviar
                 input.boton.nueva-tarea(type="submit" value="Agregar")
         //TODO - Lista de pendientes
-        pre=vardump(tareas)
+        //pre=vardump(tareas)
+        .listado-pendientes
+            ul 
+                if tareas.length
+                    each tarea in tareas
+                        li.tarea(data-tarea= tarea.id)
+                            p= tarea.tarea
+                            .acciones
+                                if tarea.estado
+                                    i.far.fa-check-circle.completo
+                                else 
+                                    i.far.fa-check-circle
+                                
+                                i.fas.fa-trash-alt
+                else 
+                    p No hay tareas en este Proyecto.                
+                    
+                
         //acciones que se puenden realizar
         .contenedor-acciones
             a(href=`/proyecto/editar/${proyecto.id}` class="boton" ) Editar Proyecto
