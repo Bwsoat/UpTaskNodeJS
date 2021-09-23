@@ -1,24 +1,3 @@
-doctype html
-html(lang="en")
-    head
-        include partials/header
-        
-    body.login
-        .contenedor-formulario
-            h1 Crear cuenta en UpTask
+include mixins/crearUsuarios
 
-            if errores 
-                each error in errores
-                     .alerta.error= error.message
-
-            form#formulario.caja.caja-login(method="POST" action="/nueva-cuenta") 
-                .campo
-                    label(for="email") Email:
-                    input(type="email" name="email" placeholder="Ingresa un email valido")
-                
-                .campo 
-                    label(for="password") Password:
-                    input(type="password" name="password" placeholder="ingresa una contraseña")
-
-                .campo.enviar
-                    input.boton(type="submit" value="Crear cuenta")
++crearUsuarios(nombrePagina, ruta)

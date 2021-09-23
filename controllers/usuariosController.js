@@ -7,16 +7,25 @@ exports.formCrearCuenta = (req, res, next)=>{
     });
 }
 
+exports.formIniciarSesion= (req, res, next)=>{
+    res.render("iniciarSesion", {
+        nombrePagina:"Iniciar Sesion en UpTask",
+        ruta: "iniciar-sesion"
+    });
+}
+
 exports.crearCuenta = async(req, res, next)=>{
     const {email, password} = req.body;
     try {
        await Usuarios.create({email, password})
         res.send("todo ok");
     } catch (error) {
-        req.flash("error", error.errors.map(error => error.menssage));
+        req.flash("error", error.errors.map(error => error.message));
         res.render("crearCuenta", {
-            errores: req.flash(),
-            nombrePagina:"Crear un nuevo Usuario"
+            mensajes: req.flash(),
+            nombrePagina:"Crear un nuevo Usuario",
+            email: email,
+            ruta: "nueva-cuenta"
         });
     }
 }

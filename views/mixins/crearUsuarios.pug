@@ -1,0 +1,27 @@
+mixin crearUsuarios(nombrePagina, ruta)
+    doctype html
+    html(lang="en")
+        head
+            include ../partials/header
+            
+        body.login
+            .contenedor-formulario
+                h1=`${nombrePagina}`
+
+                if locals.mensajes
+                    .alertas
+                        each categoria in Object.keys(locals.mensajes)
+                            each  error in mensajes[categoria]
+                                .alerta(class=`${categoria}`)
+                                    p= error
+                form#formulario.caja.caja-login(method="POST" action=`/${url}`) 
+                    .campo
+                        label(for="email") Email:
+                        input(type="email" name="email" placeholder="Ingresa un email valido" value= email)
+                    
+                    .campo 
+                        label(for="password") Password:
+                        input(type="password" name="password" placeholder="ingresa una contraseña")
+
+                    .campo.enviar
+                        input.boton(type="submit" value=`${ruta === "iniciar-sesion" ? "Iniciar Sesion":"Crear cuenta"}`)

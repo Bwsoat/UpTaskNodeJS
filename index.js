@@ -17,6 +17,7 @@ const path = require("path");
 //creamos  la conexion a la DB
 
 const db = require("./config/db");
+const cookieParser = require("cookie-parser");
 
 //importamos el modelo sin la necesitas de usar un const
 require("./models/Proyectos");
@@ -31,18 +32,28 @@ db.sync()
 //crea una app de express
 const app = express();
 
-//Donde cargar los archivos estaticos
-
-app.use(express.static("public"));
-
 //habilitar pug
 app.set("view engine", "pug");
 
 //añadir la carpeta de vistas
 app.set("views", path.join(__dirname, "./views"));
 
+//Donde cargar los archivos estaticos
+
+app.use(express.static("public"));
+
 //agregamos flash
 app.use(flash());
+
+//agregamos cookie-parser
+app.use(cookieParser());
+
+//sessions nos permite navergar entre distintas paginas sin volvernos a autenticar
+app.use(session({
+    secret: "hentai games",
+    resave: false,
+    saveUninitialized: false
+}));
 
 //pasar vardump a la aplicacion
 
