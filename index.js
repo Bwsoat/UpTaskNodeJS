@@ -4,6 +4,12 @@ const express = require("express");
 const routes = require("./routes");
 //importamos helpers con algunas funciones
 const helpers = require("./helpers");
+//importamos la libreria flash connect
+const flash  = require("connect-flash");
+//importamos cookie-parser
+const cookie = require("cookie-parser");
+//importamos express-session
+const session = require("express-session");
 
 //agregamos la libreria path
 const path = require("path");
@@ -35,11 +41,15 @@ app.set("view engine", "pug");
 //añadir la carpeta de vistas
 app.set("views", path.join(__dirname, "./views"));
 
+//agregamos flash
+app.use(flash());
+
 //pasar vardump a la aplicacion
 
 app.use((req, res, next) =>{
     //usamos res.local para poder usar esta funcion en toda la aplicacion
     res.locals.vardump = helpers.vardump;
+    res.locals.mensajes = req.flash();
     next();
 });
 

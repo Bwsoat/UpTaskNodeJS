@@ -1,32 +1,22 @@
+//Importamos la base de datos: Usuarios
+const Usuarios = require("../models/Usuarios");
+
 exports.formCrearCuenta = (req, res, next)=>{
     res.render("crearCuenta", {
         nombrePagina:"Crear un nuevo Usuario"
     });
 }
 
-exports.crearCuenta = (req, res, next)=>{
-    const {email} = req.body;
-    const {password} = req.body;
-    console.log(`Email: ${email}, contraseña: ${password}`);
-
-    res.send("todo ok");
-/*
-    let errores = [];
-    //preguntamos si nombre no esta vacio.
-    if(!nombre){
-        errores.push({"texto": "Agregar un Nombre al Proyecto."});
+exports.crearCuenta = async(req, res, next)=>{
+    const {email, password} = req.body;
+    try {
+       await Usuarios.create({email, password})
+        res.send("todo ok");
+    } catch (error) {
+        req.flash("error", error.errors.map(error => error.menssage));
+        res.render("crearCuenta", {
+            errores: req.flash(),
+            nombrePagina:"Crear un nuevo Usuario"
+        });
     }
-    //si hay errores
-    if(errores.length > 0){
-        //mostramos los errores en nuestra pagina
-        res.render("nuevo-proyecto", {
-            nombrePagina :"Nuevo Proyecto", errores, proyectos});
-    }else{
-        //no hay errores
-        //insertamos los datos en la base de datos
-        //le pasamos el nombre que ingresamos en el formulario
-        await modelo.create({nombre});
-        res.redirect("/");
-    }
-*/
 }
