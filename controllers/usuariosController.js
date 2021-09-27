@@ -3,7 +3,8 @@ const Usuarios = require("../models/Usuarios");
 
 exports.formCrearCuenta = (req, res, next)=>{
     res.render("crearCuenta", {
-        nombrePagina:"Crear un nuevo Usuario"
+        nombrePagina:"Crear un nuevo Usuario",
+        ruta: "nueva-cuenta"
     });
 }
 
@@ -16,9 +17,10 @@ exports.formIniciarSesion= (req, res, next)=>{
 
 exports.crearCuenta = async(req, res, next)=>{
     const {email, password} = req.body;
+    console.log(email);
     try {
        await Usuarios.create({email, password})
-        res.send("todo ok");
+        res.redirect("/iniciar-sesion");
     } catch (error) {
         req.flash("error", error.errors.map(error => error.message));
         res.render("crearCuenta", {

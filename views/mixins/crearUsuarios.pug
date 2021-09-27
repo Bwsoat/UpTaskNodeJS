@@ -14,7 +14,7 @@ mixin crearUsuarios(nombrePagina, ruta)
                             each  error in mensajes[categoria]
                                 .alerta(class=`${categoria}`)
                                     p= error
-                form#formulario.caja.caja-login(method="POST" action=`/${url}`) 
+                form#formulario.caja.caja-login(method="POST" action=`/${ruta}`) 
                     .campo
                         label(for="email") Email:
                         input(type="email" name="email" placeholder="Ingresa un email valido" value= email)

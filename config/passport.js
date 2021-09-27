@@ -11,14 +11,22 @@ passport.use(
         //Por default passport espera un usuario y una contraseña
         {
             usernameField: "email",
-            passwordField: "passport"
+            passwordField: "password"
         },
         async (email, password, done) =>{
             try {
                 //buscamos el usuario en la base de datos
                  const usuario = await Usuarios.find({
                      where: { email: email}
-                 })   
+                 })
+                 //usuario existe, contraseña incorrecta
+                 if(!usuario.verificarPassword(password)){
+                    return done(null, false, {
+                        message : "contraseña incorrecta"
+                    })
+                 }
+                 //el usuario existe y la contraseña es correcta
+                 return done(null, usuario);
             } catch (error) {
                 //si el usuario no existe, lanzar un error
                 return done(null, false, {
@@ -28,4 +36,16 @@ passport.use(
 
         }
     )
-)
+);
+
+//Serializar el usuario
+passport.serializeUser((usuario, callback) =>{
+    callback(null, usuario);
+})
+
+//Deserializar el usuario
+passport.deserializeUser((usuario, callback) =>{
+    callback(null, usuario);
+})
+
+module.exports = passport;

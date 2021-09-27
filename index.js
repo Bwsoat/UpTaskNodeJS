@@ -6,10 +6,10 @@ const routes = require("./routes");
 const helpers = require("./helpers");
 //importamos la libreria flash connect
 const flash  = require("connect-flash");
-//importamos cookie-parser
-const cookie = require("cookie-parser");
 //importamos express-session
 const session = require("express-session");
+//importamos passport
+const passport = require("./config/passport");
 
 //agregamos la libreria path
 const path = require("path");
@@ -54,6 +54,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //pasar vardump a la aplicacion
 
