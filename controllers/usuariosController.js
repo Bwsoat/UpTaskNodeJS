@@ -17,7 +17,6 @@ exports.formIniciarSesion= (req, res, next)=>{
 
 exports.crearCuenta = async(req, res, next)=>{
     const {email, password} = req.body;
-    console.log(email);
     try {
        await Usuarios.create({email, password})
         res.redirect("/iniciar-sesion");

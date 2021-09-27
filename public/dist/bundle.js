@@ -333,7 +333,7 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_proyectos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/proyectos */ \"./public/js/modules/proyectos.js\");\n/* harmony import */ var _modules_tareas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tareas */ \"./public/js/modules/tareas.js\");\n/* harmony import */ var _funciones_barraAvance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./funciones/barraAvance */ \"./public/js/funciones/barraAvance.js\");\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  (0,_funciones_barraAvance__WEBPACK_IMPORTED_MODULE_2__.actualizarProgreso)();\n});\n\n//# sourceURL=webpack://uptasknodejs/./public/js/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_proyectos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/proyectos */ \"./public/js/modules/proyectos.js\");\n/* harmony import */ var _modules_tareas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tareas */ \"./public/js/modules/tareas.js\");\n/* harmony import */ var _modules_cerrarSesion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/cerrarSesion */ \"./public/js/modules/cerrarSesion.js\");\n/* harmony import */ var _funciones_barraAvance__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./funciones/barraAvance */ \"./public/js/funciones/barraAvance.js\");\n\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  (0,_funciones_barraAvance__WEBPACK_IMPORTED_MODULE_3__.actualizarProgreso)();\n});\n\n//# sourceURL=webpack://uptasknodejs/./public/js/app.js?");
 
 /***/ }),
 
@@ -345,6 +345,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"actualizarProgreso\": () => (/* binding */ actualizarProgreso)\n/* harmony export */ });\nvar actualizarProgreso = function actualizarProgreso() {\n  //Seleccionar las tareas existentes\n  var tareas = document.querySelectorAll(\"li.tarea\");\n\n  if (tareas.length) {\n    //Seleccionar las tareas completas\n    var tareasCompletas = document.querySelectorAll(\"i.completo\"); //calcular avance y redondeamos con Math.round\n\n    var avance = Math.round(tareasCompletas.length / tareas.length * 100); //mostrar avance\n\n    var porcentaje = document.querySelector(\"#porcentaje\");\n    porcentaje.style.width = avance + \"%\";\n  }\n};\n\n//# sourceURL=webpack://uptasknodejs/./public/js/funciones/barraAvance.js?");
+
+/***/ }),
+
+/***/ "./public/js/modules/cerrarSesion.js":
+/*!*******************************************!*\
+  !*** ./public/js/modules/cerrarSesion.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);\n\nvar btnCerrarSesion = document.querySelector(\"#cerrarSesion\");\nconsole.log(btnCerrarSesion);\n\nif (btnCerrarSesion) {\n  btnCerrarSesion.addEventListener(\"click\", function (e) {\n    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({\n      title: 'Estas seguro?',\n      text: \"Se cerrara la sesion!\",\n      icon: 'warning',\n      showCancelButton: true,\n      confirmButtonColor: '#3085d6',\n      cancelButtonColor: '#d33',\n      confirmButtonText: 'Si, cerrar sesion!',\n      cancelButtonText: \"Cancelar\"\n    }).then(function (result) {\n      if (result.isConfirmed) {\n        window.location.href = \"/iniciar-sesion\";\n      }\n    });\n  });\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (btnCerrarSesion);\n\n//# sourceURL=webpack://uptasknodejs/./public/js/modules/cerrarSesion.js?");
 
 /***/ }),
 

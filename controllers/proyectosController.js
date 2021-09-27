@@ -5,7 +5,7 @@ const Tareas = require("../models/Tareas");
 
 //exportamos el controlador
 exports.proyectosHome = async(req, res)=>{
-    const proyectos = await modelo.findAll();
+    const proyectos = await modelo.findAll().catch();
     res.render("index", {
         nombrePagina : "Proyectos",
         proyectos

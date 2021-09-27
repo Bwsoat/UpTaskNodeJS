@@ -115,7 +115,7 @@ body.index {
     padding: 1rem;
     height: 60px;
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
 }
 .barra h1 {
@@ -123,9 +123,14 @@ body.index {
     margin:0;
     font-size: 1.4rem;
 }
-.barra a {
+.barra span {
+    cursor: pointer;
     color: white;
     text-decoration: none;
+}
+.barra i {
+    color: white;
+    font-size: 1.5rem;
 }
 /*** sidebar**/
 .contenedor-proyectos {
