@@ -19,12 +19,25 @@ mixin crearUsuarios(nombrePagina, ruta)
                         label(for="email") Email:
                         input(type="email" name="email" placeholder="Ingresa un email valido" value= email)
                     
-                    .campo 
-                        label(for="password") Password:
-                        input(type="password" name="password" placeholder="ingresa una contraseña")
-
-                    .campo.enviar
-                        input.boton(type="submit" value=`${ruta === "iniciar-sesion" ? "Iniciar Sesion":"Crear cuenta"}`)
+                    if !ruta === "restablecer-password"
                     
-                    .campo
-                        a(href="") Reestablecer contraseña 
+                        .campo 
+                            label(for="password") Contraseña:
+                            input(type="password" name="password" placeholder="ingresa una contraseña")
+
+                        .campo.enviar
+                            input.boton(type="submit" value=`${ruta === "iniciar-sesion" ? "Iniciar Sesion":"Crear cuenta"}`)
+                    
+                    else 
+                        .campo.enviar
+                            input.boton(type="submit" value="Restablecer")
+                    
+                    .campo.acciones
+                        if ruta === "iniciar-sesion"
+                            a(href="/nueva-cuenta") no tienes una cuenta?Registrate!
+                        
+                        if ruta === "iniciar-sesion"
+                            a(href="/restablecer-password") Reestablecer contraseña
+                        else 
+                            a(href=`/iniciar-sesion`) Inicia Sesion!
+                        
