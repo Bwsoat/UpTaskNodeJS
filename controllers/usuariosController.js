@@ -8,11 +8,11 @@ exports.formCrearCuenta = (req, res, next)=>{
     });
 }
 
-exports.formIniciarSesion= (req, res, next)=>{
+exports.formIniciarSesion= (req, res)=>{
     res.render("iniciarSesion", {
-        nombrePagina:"Iniciar Sesion en UpTask",
+        nombrePagina: "Iniciar Sesion en UpTask",
         ruta: "iniciar-sesion"
-    });
+    })
 }
 
 exports.crearCuenta = async(req, res, next)=>{

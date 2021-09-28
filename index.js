@@ -42,9 +42,6 @@ app.set("views", path.join(__dirname, "./views"));
 
 app.use(express.static("public"));
 
-//agregamos flash
-app.use(flash());
-
 //agregamos cookie-parser
 app.use(cookieParser());
 
@@ -57,12 +54,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//pasar vardump a la aplicacion
+//agregamos flash
+app.use(flash());
 
+//pasar vardump a la aplicacion
 app.use((req, res, next) =>{
     //usamos res.local para poder usar esta funcion en toda la aplicacion
     res.locals.vardump = helpers.vardump;
     res.locals.mensajes = req.flash();
+    res.locals.usuario = {...req.user} || null;
     next();
 });
 

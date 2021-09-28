@@ -14,7 +14,7 @@ const authController = require("../controllers/authController");
 //usamos module.exports para exportar de manera nativa
 module.exports = function(){
     //ruta para el home
-    router.get("/", 
+    router.get("/",
         authController.usuarioAutenticado,
         proyectoController.proyectosHome);
     //ruta para la vista nuevo-proyecto

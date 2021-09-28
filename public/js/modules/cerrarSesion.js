@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 
 const btnCerrarSesion = document.querySelector("#cerrarSesion");
-console.log(btnCerrarSesion);
 if(btnCerrarSesion){
     btnCerrarSesion.addEventListener("click", e =>{
         Swal.fire({

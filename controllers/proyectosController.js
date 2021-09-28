@@ -5,7 +5,9 @@ const Tareas = require("../models/Tareas");
 
 //exportamos el controlador
 exports.proyectosHome = async(req, res)=>{
-    const proyectos = await modelo.findAll().catch();
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await modelo.findAll({ where: { usuarioId }})
+        .catch();
     res.render("index", {
         nombrePagina : "Proyectos",
         proyectos
@@ -13,7 +15,9 @@ exports.proyectosHome = async(req, res)=>{
 }
 //exportamos el controlador para mostrar la vista nuevo-proyecto
 exports.proyectoNuevo = async(req, res)=>{
-    const proyectos = await modelo.findAll();
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await modelo.findAll({ where: { usuarioId }})
+        .catch();
     res.render("nuevo-proyecto", {
         nombrePagina : "Nuevo Proyecto",
         proyectos
@@ -21,7 +25,11 @@ exports.proyectoNuevo = async(req, res)=>{
 }
 
 exports.nuevoProyecto = async (req, res)=>{
-    const proyectos = await modelo.findAll();
+    //mostramos solo los proyectos que el usuario atenticado creo
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await modelo.findAll({ where: { usuarioId }})
+        .catch();
+
     //enviar a la consola lo que el usuario escribe
     //console.log(req.body);
 
@@ -43,13 +51,16 @@ exports.nuevoProyecto = async (req, res)=>{
         //no hay errores
         //insertamos los datos en la base de datos
         //le pasamos el nombre que ingresamos en el formulario
-        await modelo.create({nombre});
+        const usuarioId = res.locals.usuario.id;
+        await modelo.create({nombre, usuarioId});
         res.redirect("/");
     }
 }
 exports.proyectoPorUrl = async(req, res, next)=>{
-    const proyectosPromise = await modelo.findAll();
-    const proyectoPromise = await modelo.findOne({
+    //mostramos solo los proyectos que el usuario atenticado creo
+    const usuarioId = res.locals.usuario.id;
+    const proyectosPromise = modelo.findAll({ where: { usuarioId }})
+    const proyectoPromise = modelo.findOne({
         where:{
             url: req.params.url
         }
@@ -74,8 +85,10 @@ exports.proyectoPorUrl = async(req, res, next)=>{
 }
 
 exports.editarFormulario = async(req, res)=>{
-    const proyectosPromise = await modelo.findAll();
-    const proyectoPromise = await modelo.findOne({
+    //mostramos solo los proyectos que el usuario atenticado creo
+    const usuarioId = res.locals.usuario.id;
+    const proyectosPromise = modelo.findAll({ where: { usuarioId }})
+    const proyectoPromise = modelo.findOne({
         where:{
             id: req.params.id
         }
@@ -91,7 +104,11 @@ exports.editarFormulario = async(req, res)=>{
 }
 
 exports.actualizarProyecto = async (req, res)=>{
-    const proyectos = await modelo.findAll();
+    //mostramos solo los proyectos que el usuario atenticado creo
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = modelo.findAll({ where: { usuarioId }})
+        .catch();
+
     const {nombre} = req.body;
 
     let errores = [];
