@@ -3,6 +3,7 @@ const Usuarios = require("../models/Usuarios");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 
 exports.autenticarUsuario = passport.authenticate("local", {
     successRedirect: "/",
@@ -85,6 +86,12 @@ exports.restablecerPassword = async(req, res) => {
         req.flash("error", "el usuario no existe, o expiro el tiempo de recuperacion");
         res.render("/restablecer-password");
     }
-
+    //hasheamos el nuevo password, eliminamos el token y la expiracion
+    usuario.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    usuario.token = null;
+    usuario.expiracion = null;
     res.redirect("/iniciar-sesion");
+
+    //Guardamos los cambios
+    await usuario.save();
 }
