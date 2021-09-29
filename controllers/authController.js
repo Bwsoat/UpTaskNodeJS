@@ -1,6 +1,8 @@
 const passport = require("passport");
-
 const Usuarios = require("../models/Usuarios");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+const crypto = require("crypto");
 
 exports.autenticarUsuario = passport.authenticate("local", {
     successRedirect: "/",
@@ -37,4 +39,52 @@ exports.enviarToken = async(req, res, next) => {
             ruta: "restablecer-password"
         })
     }
+    //si el usuario existe, generamos el token
+    usuario.token = crypto.randomBytes(20).toString("hex");
+    usuario.expiracion = Date.now() + 360000;
+
+    //los guardamos en la base de datos
+    await usuario.save();
+
+    //url de reset
+
+    const resetUrl = `http://${req.headers.host}/restablecer-password/${usuario.token}`;
+    console.log(resetUrl);
+}
+
+exports.validarToken = async(req, res) => {
+    const usuario = await Usuarios.findOne({
+        where: {
+            token: req.params.token
+        }
+    });
+    //Si el usuario no existe, redireccionar al restablecer contraseña
+    if(!usuario){
+        req.flash("error", "Usuario no valido");
+        res.redirect("/restablecer-password");
+    }
+
+    //formulario para resetear el password
+    res.render("resetPassword", {
+        nombrePagina : "Restablecer Contraseña"
+    })
+}
+
+exports.restablecerPassword = async(req, res) => {
+    //Verifica el token y la expiracion
+    const { password } = req.body;
+    const token = req.params.token;
+    const usuario = await Usuarios.findOne({ where: {
+        token: req.params.token,
+        expiracion: {
+            [Op.gte] : Date.now()
+        }
+    }});
+
+    if(!usuario){
+        req.flash("error", "el usuario no existe, o expiro el tiempo de recuperacion");
+        res.render("/restablecer-password");
+    }
+
+    res.redirect("/iniciar-sesion");
 }

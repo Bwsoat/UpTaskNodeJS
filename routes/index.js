@@ -81,6 +81,9 @@ module.exports = function(){
     router.get("/restablecer-password", usuarioController.formRestablecerPassword);
     router.post("/restablecer-password", authController.enviarToken);
 
+    router.get("/restablecer-password/:token", authController.validarToken);
+    router.post("/restablecer-password/:token", authController.restablecerPassword);
+
     return router;
 
 }

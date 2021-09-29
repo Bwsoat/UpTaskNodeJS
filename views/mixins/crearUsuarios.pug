@@ -19,7 +19,7 @@ mixin crearUsuarios(nombrePagina, ruta)
                         label(for="email") Email:
                         input(type="email" name="email" placeholder="Ingresa un email valido" value= email)
                     
-                    if !ruta === "restablecer-password"
+                    if ruta != "restablecer-password"
                     
                         .campo 
                             label(for="password") Contraseña:
