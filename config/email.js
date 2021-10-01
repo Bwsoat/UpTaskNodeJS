@@ -6,3 +6,14 @@ module.exports = {
         pass: "18028b7a7ec978"
     }
 }
+
+module.exports = {
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: "sosa.ariel.arcenio@gmail.com",
+        pass: "awxbhnozbqamjwrc"
+    }
+}
+

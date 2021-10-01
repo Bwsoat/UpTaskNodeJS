@@ -1,10 +1,10 @@
 const nodemailer = require("nodemailer");
 const pug = require("pug");
 const juice = require("juice");
-const htmlToText = require("html-to-text");
-const util = require("util");
+const htmlText = require("html-to-text");
 
 const emailConfig = require("../config/email");
+const Usuarios = require("../models/Usuarios");
 
 let transporter = nodemailer.createTransport({
     host: emailConfig.host,
@@ -16,17 +16,23 @@ let transporter = nodemailer.createTransport({
 });
 //Verificamos que el trasnporter funciona correctamente
 transporter.verify().then(()=>{
-  console.log("Ready to send");
-});
   //Generar html
-  const generarHTML = ()=> {
-    const hmtl = pug.renderFile();
+  const generarHTML = (archivo, opciones = {})=> {
+    const html = pug.renderFile(`${__dirname}/../views/emails/${archivo}.pug`, opciones);
+    return juice(html);
   }
-
-  transporter.sendMail({
-    from: "'UpTask' <no-reply@uptask.com>",
-    to: "correo@correo.com",
-    subject: "Password Reset",
-    text: "texto",
-    html: "<b>texto</b>",
-  });
+exports.enviar = async (opciones)=> {
+    const html  = generarHTML(opciones.archivo, opciones);
+    const text  = htmlText.htmlToText(html);
+    await transporter.sendMail({
+      from: "'UpTask' <no-reply@gmail.com>",
+      to: opciones.usuario.email,
+      subject: opciones.subject,
+      text,
+      html
+    }).catch(function(e) {
+      console.log(e);
+      //res.status(404).json({ message: "something goes wrong" });
+    });
+  }
+});

@@ -74,5 +74,3 @@ app.use("/", routes() );
 
 //el puerto donde va a correr express
 app.listen(3500);
-
-require("./handles/email");
