@@ -10,6 +10,8 @@ const flash  = require("connect-flash");
 const session = require("express-session");
 //importamos passport
 const passport = require("./config/passport");
+//importamos nuestras variables
+require("dotenv").config( { path: "variables.env" } );
 
 //agregamos la libreria path
 const path = require("path");
@@ -72,5 +74,10 @@ app.use(express.urlencoded({extended: true}));
 //aqui utlizamos lo que exportamos
 app.use("/", routes() );
 
-//el puerto donde va a correr express
-app.listen(3500);
+//Servidor y puerto
+const host = process.env.HOST || "0.0.0.0";
+const port = process.env.PORT || 3500;
+
+app.listen(port, host, ()=> {
+    console.log("El Servidor esta OK.");
+});

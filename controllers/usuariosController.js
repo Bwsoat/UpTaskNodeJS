@@ -1,5 +1,6 @@
 //Importamos la base de datos: Usuarios
 const Usuarios = require("../models/Usuarios");
+const enviarEmail = require("../handles/email");
 
 exports.formCrearCuenta = (req, res, next)=>{
     res.render("crearCuenta", {
@@ -17,8 +18,26 @@ exports.formIniciarSesion= (req, res)=>{
 
 exports.crearCuenta = async(req, res, next)=>{
     const {email, password} = req.body;
+
     try {
-       await Usuarios.create({email, password})
+        //Crear usuario
+        await Usuarios.create({email, password})
+
+        //crear una url que nos mande a activar la cuenta
+        const activateUrl = `http://${req.headers.host}/activar-cuenta/${email}`;
+       //Preparamos el objeto para enviar un email
+       const usuario = {email};
+       await enviarEmail.enviar({
+            usuario,
+            subject: "activar cuenta",
+            activateUrl,
+            archivo: "activar-cuenta"
+        }).catch( error =>{
+            console.log(error, "Error al enviar el email");
+            next();
+        });
+
+        req.flash("correcto", "El correo de activacion se ha enviado");
         res.redirect("/iniciar-sesion");
     } catch (error) {
         req.flash("error", error.errors.map(error => error.message));

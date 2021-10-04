@@ -17,7 +17,9 @@ passport.use(
             try {
                 //buscamos el usuario en la base de datos
                  const usuario = await Usuarios.findOne({
-                     where: { email: email}
+                     where: { email,
+                              activo: 1    
+                    }
                  })
                  //usuario existe, contraseña incorrecta
                  if(!usuario.verificarPassword(password)){

@@ -1,0 +1,14 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style 
+            include ./email.css 
+    body
+        h2 Activar Cuenta
+        p hola, has creado una cuenta, haz click en el siguiente enlace para activarla,
+        a(href=`${activateUrl}`)  Ir a activar la cuenta
+        p Si no puedes acceder a al enlace, visita #{activateUrl}
+        p Si no solicitaste este e-mail, puedes ignorarlo

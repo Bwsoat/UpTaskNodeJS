@@ -4,8 +4,9 @@
   "description": "proyecto UpTaskNodeJS con Node y MVC",
   "main": "index.js",
   "scripts": {
+    "desarrollo": "concurrently \"npm run dev \" \"npm run watch \" ",
     "dev": "nodemon ./index.js",
-    "start": "concurrently \"npm run dev \" \"npm run watch \" ",
+    "start": "node ./index.js",
     "watch": "webpack -w --mode development"
   },
   "author": "Ariel Sosa",
@@ -17,6 +18,7 @@
     "concurrently": "^6.2.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "express-validator": "^6.12.1",

@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
-const db = new Sequelize('upTaskNode', 'root', 'rootroot', {
-  host: 'localhost',
+require("dotenv").config({ path: "variables.env" });
+const db = new Sequelize(process.env.BD_NAME, process.env.BD_USER, process.env.BD_PASS, {
+  host: process.env.BD_HOST,
   dialect: 'mysql',
+  port: process.env.BD_PORT,
   operatorsAliases: 0,
   define: {
     timestamps: false

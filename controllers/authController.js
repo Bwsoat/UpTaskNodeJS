@@ -87,7 +87,6 @@ exports.validarToken = async(req, res) => {
 exports.restablecerPassword = async(req, res) => {
     //Verifica el token y la expiracion
     const { password } = req.body;
-    const token = req.params.token;
     const usuario = await Usuarios.findOne({ where: {
         token: req.params.token,
         expiracion: {
@@ -107,4 +106,20 @@ exports.restablecerPassword = async(req, res) => {
 
     //Guardamos los cambios
     await usuario.save();
+}
+
+exports.activarCuenta = async(req, res)=> {
+    const usuario = await Usuarios.findOne({
+        where: {
+            email: req.params.email
+        }
+    });
+    //definimos y guardamos la activacion de la cuenta
+    usuario.activo = 1;
+    await usuario.save();
+
+    //redireccionamos y enviamos un mensaje de confirmacion
+    req.flash("correcto", "cuenta activada correntamente");
+    res.redirect("/iniciar-sesion");
+    
 }

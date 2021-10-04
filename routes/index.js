@@ -84,6 +84,9 @@ module.exports = function(){
     router.get("/restablecer-password/:token", authController.validarToken);
     router.post("/restablecer-password/:token", authController.restablecerPassword);
 
+    //Activar cuenta
+    router.get("/activar-cuenta/:email", authController.activarCuenta)
+
     return router;
 
 }
