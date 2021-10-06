@@ -10,22 +10,31 @@ html(lang="es")
             span#cerrarSesion Cerrar sesion
         
         main.contenedor
-            aside.contenedor-proyectos
-                .panel.crear-proyecto
+            div#sidemenu.menu-collapsed
+                div#header
+                    div#title
+                        span Titulo de barra
+                    div#menu-btn
+                        div.btn-hamburger
+                        div.btn-hamburger
+                        div.btn-hamburger 
+                div#profile
+                    div#photo
+                        img(src=`../imagenes/reveCat.jpg`, alt="imagen no encontrada")
+                    div#name
+                        span Ariel Sosa
+                div#nuevo-proyecto
                     a(href="/nuevo-proyecto" class="boton") Nuevo Proyecto
                         span +
-                .panel.lista-proyectos
+                div#lista-proyectos.lista-proyectos
                     h2 Proyectos
-                    ul#proyectos.proyectos
-                        if(proyectos.length)
-                            each proyecto in proyectos
-                                li
-                                    a(href=`/proyectos/${proyecto.url}`)=proyecto.nombre 
+                        ul#proyectos.proyectos
+                            if(proyectos.length)
+                                each proyecto in proyectos
+                                    li
+                                        a(href=`/proyectos/${proyecto.url}`)=proyecto.nombre
                 
             block contenido
         
                 
         script(src="/dist/bundle.js")
-
-        
-    
