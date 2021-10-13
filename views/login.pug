@@ -1,0 +1,38 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet' href='/css/normalize.css')
+    link(rel='stylesheet' href='/css/app-login.css')
+    script(src='https://kit.fontawesome.com/6b4c519f3f.js' crossorigin='anonymous')
+    title login Node
+  body
+    .loginContainer
+      h1.title UpTask con Node JS
+      form.login-container(method='POST' action='/iniciar-sesion/')
+        .login-input
+          i.fas.fa-user
+          input#userName.input(type='text' name='userName' placeholder='Username')
+        .login-input
+          i.fas.fa-lock
+          input#password.input(type='password' name='password' placeholder='Password')
+        p Forgot your password?
+            span Click here
+
+        input.button(type='submit' value='SIGN IN')
+      .social-login
+        #btn-google.social-login-items
+          img(src='icons/google-svgrepo-com.svg' alt='Login google')
+          span Google
+        #btn-facebook.social-login-items
+          img(src='icons/facebook-svgrepo-com.svg' alt='Login facebook')
+          span Facebook
+        #btn-twitter.social-login-items
+          img(src='icons/twitter-svgrepo-com.svg' alt='Login twitter')
+          span Twitter
+      footer
+        p Don't have an account?
+            span Sign Up
+        script(src="/dist/bundle.js")

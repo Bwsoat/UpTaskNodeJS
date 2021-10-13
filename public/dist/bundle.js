@@ -333,7 +333,7 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_proyectos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/proyectos */ \"./public/js/modules/proyectos.js\");\n/* harmony import */ var _modules_tareas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tareas */ \"./public/js/modules/tareas.js\");\n/* harmony import */ var _modules_cerrarSesion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/cerrarSesion */ \"./public/js/modules/cerrarSesion.js\");\n/* harmony import */ var _funciones_barraAvance__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./funciones/barraAvance */ \"./public/js/funciones/barraAvance.js\");\n\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  (0,_funciones_barraAvance__WEBPACK_IMPORTED_MODULE_3__.actualizarProgreso)();\n});\n\n//# sourceURL=webpack://uptasknodejs/./public/js/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_proyectos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/proyectos */ \"./public/js/modules/proyectos.js\");\n/* harmony import */ var _modules_tareas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tareas */ \"./public/js/modules/tareas.js\");\n/* harmony import */ var _modules_cerrarSesion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/cerrarSesion */ \"./public/js/modules/cerrarSesion.js\");\n/* harmony import */ var _modules_menudesplegable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/menudesplegable */ \"./public/js/modules/menudesplegable.js\");\n/* harmony import */ var _modules_googleBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/googleBtn */ \"./public/js/modules/googleBtn.js\");\n/* harmony import */ var _funciones_barraAvance__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./funciones/barraAvance */ \"./public/js/funciones/barraAvance.js\");\n\n\n\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  (0,_funciones_barraAvance__WEBPACK_IMPORTED_MODULE_5__.actualizarProgreso)();\n});\n\n//# sourceURL=webpack://uptasknodejs/./public/js/app.js?");
 
 /***/ }),
 
@@ -355,7 +355,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);\n\nvar btnCerrarSesion = document.querySelector(\"#cerrarSesion\");\n\nif (btnCerrarSesion) {\n  btnCerrarSesion.addEventListener(\"click\", function (e) {\n    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({\n      title: 'Estas seguro?',\n      text: \"Se cerrara la sesion!\",\n      icon: 'warning',\n      showCancelButton: true,\n      confirmButtonColor: '#3085d6',\n      cancelButtonColor: '#d33',\n      confirmButtonText: 'Si, cerrar sesion!',\n      cancelButtonText: \"Cancelar\"\n    }).then(function (result) {\n      if (result.isConfirmed) {\n        window.location.href = \"/iniciar-sesion\";\n      }\n    });\n  });\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (btnCerrarSesion);\n\n//# sourceURL=webpack://uptasknodejs/./public/js/modules/cerrarSesion.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\n/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);\n\nvar btnCerrarSesion = document.querySelector(\"#cerrarSesion\");\n\nif (btnCerrarSesion) {\n  btnCerrarSesion.addEventListener(\"click\", function (e) {\n    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({\n      title: 'Estas seguro?',\n      text: \"Se cerrara la sesion!\",\n      icon: 'warning',\n      showCancelButton: true,\n      confirmButtonColor: '#3085d6',\n      cancelButtonColor: '#d33',\n      confirmButtonText: 'Si, cerrar sesion!',\n      cancelButtonText: \"Cancelar\"\n    }).then(function (result) {\n      if (result.isConfirmed) {\n        window.location.href = \"/sign-in\";\n      }\n    });\n  });\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (btnCerrarSesion);\n\n//# sourceURL=webpack://uptasknodejs/./public/js/modules/cerrarSesion.js?");
+
+/***/ }),
+
+/***/ "./public/js/modules/googleBtn.js":
+/*!****************************************!*\
+  !*** ./public/js/modules/googleBtn.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar googleBtn = document.querySelector(\"#btn-google\");\n\nif (googleBtn) {\n  googleBtn.addEventListener(\"click\", function (e) {\n    window.location.href = \"/auth/google\";\n  });\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (googleBtn);\n\n//# sourceURL=webpack://uptasknodejs/./public/js/modules/googleBtn.js?");
+
+/***/ }),
+
+/***/ "./public/js/modules/menudesplegable.js":
+/*!**********************************************!*\
+  !*** ./public/js/modules/menudesplegable.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar btn = document.querySelector(\"#menu-btn\");\nvar menu = document.querySelector(\"#sidemenu\");\n\nif (btn) {\n  btn.addEventListener(\"click\", function (e) {\n    menu.classList.toggle(\"menu-expanded\");\n    menu.classList.toggle(\"menu-collapsed\");\n    document.querySelector(\"body\").classList.toggle(\"body-expanded\");\n  });\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (btn);\n\n//# sourceURL=webpack://uptasknodejs/./public/js/modules/menudesplegable.js?");
 
 /***/ }),
 

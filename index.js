@@ -10,6 +10,7 @@ const flash  = require("connect-flash");
 const session = require("express-session");
 //importamos passport
 const passport = require("./config/passport");
+const passportgoogle =require("./config/passportGoogle");
 //importamos nuestras variables
 require("dotenv").config( { path: "variables.env" } );
 
@@ -53,6 +54,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(passportgoogle.initialize());
+app.use(passportgoogle.session());
+
 app.use(passport.initialize());
 app.use(passport.session());
 

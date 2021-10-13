@@ -14,7 +14,7 @@ if(btnCerrarSesion){
             cancelButtonText: "Cancelar"
           }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href ="/iniciar-sesion"
+                window.location.href ="/sign-in"
             }
           })
     })

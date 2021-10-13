@@ -1,6 +1,7 @@
 //traemos todas las funciones de express a este archivo
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 //importar express validator, usamos check para usar metodos de validacion
 const {body, validationResult} = require("express-validator");
@@ -35,6 +36,11 @@ module.exports = function(){
     router.get("/proyectos/:url", 
         authController.usuarioAutenticado,
         proyectoController.proyectoPorUrl);
+    
+    //Todos los proyectos
+    router.get("/proyectos", 
+    authController.usuarioAutenticado,
+    proyectoController.paginaProyectos);
     
     //Atualizar Proyecto
     router.get("/proyecto/editar/:id", 
@@ -71,8 +77,8 @@ module.exports = function(){
     router.post("/nueva-cuenta", usuarioController.crearCuenta);
 
     //Iniciar Sesion
-    router.get("/iniciar-sesion", usuarioController.formIniciarSesion);
-    router.post("/iniciar-sesion", authController.autenticarUsuario);
+    router.get("/sign-in", usuarioController.formIniciarSesion);
+    router.post("/sign-in", authController.autenticarUsuario);
 
     //Cerrar sesion
     router.get("/cerrar-sesion", authController.cerrarSesion);
@@ -85,8 +91,18 @@ module.exports = function(){
     router.post("/restablecer-password/:token", authController.restablecerPassword);
 
     //Activar cuenta
-    router.get("/activar-cuenta/:email", authController.activarCuenta)
+    router.get("/activar-cuenta/:email", authController.activarCuenta);
 
+    router.get("/auth/google", authController.autenticarGoogle);
+    router.get('/auth/google/redirect', 
+        passport.authenticate('google', { failureRedirect: '/sign-in' }),
+        function(req, res) {
+            // Successful authentication, redirect home.
+            res.redirect('/');
+     });
+    router.get("/create-account", (req, res)=>{
+        res.render("login/create-account")
+    });
     return router;
 
 }

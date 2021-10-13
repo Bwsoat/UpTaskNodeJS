@@ -136,3 +136,12 @@ exports.eliminarProyecto = async (req, res, next)=>{
     //esto es lo que enviamos como respuesta a la eliminacion
     res.send("El proyecto se ha eliminado");
 }
+
+exports.paginaProyectos = async(req, res, next)=>{
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await modelo.findAll({ where: { usuarioId }});
+    res.render("proyectos", {
+        nombrePagina: "Proyectos",
+        proyectos
+    });
+}

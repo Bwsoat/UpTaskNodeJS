@@ -5,12 +5,14 @@ html {
 body {
     font-family: 'Lato', sans-serif;
     min-height: 100vh;
-    background-color: black;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 /** Login **/
 .login,
 .crear-cuenta {
-    background: #455A64;
+    background: #023c55;
 }
 .contenedor-formulario {
     display: flex;
@@ -63,6 +65,7 @@ body {
     border-radius: 5rem;
     padding-left: 2rem;
     color: black;
+    background-color: rgb(226, 206, 27);
 }
 .campo.acciones {
     justify-content: space-between;
@@ -140,7 +143,6 @@ body.index {
 .contenido-principal {
     flex: 1;
     padding: 1rem;
-    overflow: scroll;
 }
 .contenido-principal h1,
 .contenido-principal h2 {
@@ -168,7 +170,7 @@ body.index {
 
 /** Listado Pendientes **/
 .listado-pendientes {
-    background-color: #F2F2F2;
+    background-color: rgb(226, 206, 27);
     max-width: 800px;
     width: 90%;
     margin: 2rem auto 0 auto;
@@ -179,12 +181,19 @@ body.index {
     padding: 0;
     list-style: none;
 }
+
+.listado-pendientes a {
+    color: #000;
+    text-decoration: none;
+}
 .listado-pendientes ul li {
+    color: #000;
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 1.4rem;
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid #000000;
 }
 .listado-pendientes ul li:last-of-type {
     border-bottom: none;
@@ -308,31 +317,37 @@ form input[type="submit"]{
     --width-collapsed: 50px;
 }
 body{
+    background-color: #023c55;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
     margin-left: var(--width-collapsed);
 }
 .body-expanded{
     margin-left: var(--width);
 }
 #sidemenu{
-    background-color: var(--bgcolor);
-    color: white;
+    background-color: rgb(226, 206, 27);
     position: fixed;
     height: 100%;
     left: 0;
     top: 0;
 }
+#sidemenu a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+/**
+    HEADER
+**/
 #sidemenu #header{
     box-sizing: border-box;
     border-bottom: solid 1px var(--hovercolor);
 }
 #sidemenu #header #title{
     box-sizing: border-box;
-    border-bottom: solid 1px var(--hovercolor);
     overflow: hidden;
-}
-#nuevo-proyecto a{
-    font-size: 0.9rem;
-    text-decoration: none;
 }
 #sidemenu #header #title, #sidemenu #header #menu-btn{
     vertical-align: middle;
@@ -344,12 +359,13 @@ body{
     cursor: pointer;
     padding: 10px;
     width: var(--width-collapsed);
+    box-sizing: border-box;
 }
 #sidemenu #header #menu-btn:hover{
     background-color: var(--hovercolor);
 }
-#sidemenu #header #menu-btn  .btn-hamburger{
-    background-color: #fff;
+#sidemenu #header #menu-btn .btn-hamburger{
+    background-color: rgb(7, 6, 6);
     width: 100%;
     height: 2px;
     margin: 5px 0;
@@ -368,21 +384,157 @@ body{
     margin: 0 auto;
 }
 #sidemenu #profile #photo  img{
-    border-radius: 50%;
-    width: 60%;
+    border: solid 1px black;
+    border-radius: 47%;
+    width: 85%;
+}
+#sidemenu #profile #photo, #sidemenu #profile #name{
+    font-size: 24px;
+    padding: var(--padding) 0;
+    overflow: hidden;
+} 
+#sidemenu #profile #name{
+    margin-right: 1rem;
+}
+/**
+    ITEMS
+**/
+
+#sidemenu #menu-items{
+    overflow: hidden;
+}
+#sidemenu #menu-items .item{
+    width: var(--width);
+}
+#sidemenu #menu-items .item .icon{
+    display: inline-block;
+}
+#sidemenu #menu-items .item .icon,
+#sidemenu #menu-items .item .title{
+    font-size: 20px;
+    vertical-align: middle;
+    overflow: hidden;
+    display: inline-block;
 }
 
+#sidemenu #menu-items .item .icon{
+    box-sizing: border-box;
+    padding: var(--padding);
+    width: var(--width-collapsed);
+}
+#sidemenu #menu-items .item .icon i{
+    width: 100%;
+}
+#sidemenu #menu-items .item .title{
+    padding: var(--padding) 0;
+}
+#sidemenu #menu-items .item.separator{
+    height: 1px;
+    border-bottom: solid 1px var(--hovercolor);
+    margin: 15px 0;
+}
+
+/**
+    PROYECTS
+**/
+#nuevo-proyecto a{
+    color: #063e53;
+    font-size: 0.9rem;
+    text-decoration: none;
+    background-color: #FDD835;
+    overflow: hidden;
+}
 #lista-proyectos{
     font-size: 0.9rem;
 }
 .lista-proyectos ul{
-    list-style: none;
-    padding: 1.5rem 0 0 0;
     margin: 0;
 }
 .lista-proyectos ul li {
+    list-style: none;
     margin-bottom: 1rem;
 }
 .lista-proyectos ul li a:hover {
-    color: #FDD835;
+    display: inline-block !important;
+    background-color: rgb(226, 206, 27) !important;
+    color: #023c55 !important;
 }
+/**
+    Menu
+**/
+.menu-expanded{
+    width: var(--width);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.menu-expanded #header #title{
+    display: inline-block;
+    width: calc(100% - 50px);
+    margin-right: -5px;
+    padding: var(--padding);   
+}
+.menu-expanded #header #title span{
+    width: calc(var(--width) - var(--width-collapsed) - 5px);
+    overflow: hidden;
+}
+.menu-expanded #profile #photo{
+    width: 200px;
+}
+.menu-expanded #profile #name{
+    width: 100%;
+}
+.menu-collapsed{
+    width: var(--width-collapsed);
+}
+.menu-collapsed #header #title{
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+}
+.menu-collapsed #profile #name{
+    display: none;
+}
+.menu-collapsed ul li{
+    display: none;
+}
+.menu-collapsed .item{
+    width: 100px;
+}
+/**
+    Boton de google
+**/
+#customBtn {
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 130px;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+  }
+  #customBtn:hover {
+    cursor: pointer;
+  }
+  span.label {
+    font-family: serif;
+    font-weight: normal;
+  }
+  span.icon {
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png') transparent 5px 50% no-repeat;
+    background-size: 30px auto;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+  }
+  span.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-right: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    /* Use the Roboto font that is loaded in the <head> */
+    font-family: 'Roboto', sans-serif;
+  }

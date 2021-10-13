@@ -3,17 +3,13 @@ html(lang="es")
     head
         include partials/header
         
-    body 
-        header.barra 
-            h1 UpTask - Administrador de Proyectos
-            i.far.fa-user-circle
-            span#cerrarSesion Cerrar sesion
-        
-        main.contenedor
+    body
+        main.contenedor    
             div#sidemenu.menu-collapsed
                 div#header
                     div#title
-                        span Titulo de barra
+                        span 
+                            a(href="/") UpTask con Node
                     div#menu-btn
                         div.btn-hamburger
                         div.btn-hamburger
@@ -23,18 +19,31 @@ html(lang="es")
                         img(src=`../imagenes/reveCat.jpg`, alt="imagen no encontrada")
                     div#name
                         span Ariel Sosa
-                div#nuevo-proyecto
-                    a(href="/nuevo-proyecto" class="boton") Nuevo Proyecto
-                        span +
-                div#lista-proyectos.lista-proyectos
-                    h2 Proyectos
-                        ul#proyectos.proyectos
-                            if(proyectos.length)
-                                each proyecto in proyectos
-                                    li
-                                        a(href=`/proyectos/${proyecto.url}`)=proyecto.nombre
+                        span#cerrarSesion
+                            i.fas.fa-sign-in-alt
+                div#menu-items
+                    div.item
+                        a(href="/nuevo-proyecto")
+                            div.icon
+                                i.fas.fa-plus
+                            div.title 
+                                span Nuevo Proyecto
                 
-            block contenido
+                    div(class="item separator")
+
+                    div.item
+                        a(href="/proyectos")
+                            div.icon 
+                                i.fas.fa-folder
+                            div.title
+                                span Proyectos
+                            div#lista-proyectos.lista-proyectos
+                                ul
+                                    if(proyectos.length)
+                                        each proyecto in proyectos
+                                            li
+                                                a(href=`/proyectos/${proyecto.url}`)=proyecto.nombre
         
-                
+            block contenido
+                 
         script(src="/dist/bundle.js")

@@ -3,7 +3,9 @@ mixin crearUsuarios(nombrePagina, ruta)
     html(lang="es")
         head
             include ../partials/header
-            
+            meta(name='google-signin-client_id' content='YOUR_CLIENT_ID.apps.googleusercontent.com')
+            link(href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css')
+
         body.login
             .contenedor-formulario
                 h1=`${nombrePagina}`
@@ -14,7 +16,7 @@ mixin crearUsuarios(nombrePagina, ruta)
                             each  error in mensajes[categoria]
                                 .alerta(class=`${categoria}`)
                                     p= error
-                form#formulario.caja.caja-login(method="POST" action=`/${ruta}`) 
+                form#formulario.caja-login(method="POST" action=`/${ruta}`) 
                     .campo
                         label(for="email") Email:
                         input(type="email" name="email" placeholder="Ingresa un email valido" value= email)
@@ -31,6 +33,12 @@ mixin crearUsuarios(nombrePagina, ruta)
                     else 
                         .campo.enviar
                             input.boton(type="submit" value="Restablecer")
+                        
+                    if ruta === "iniciar-sesion"
+                        .campo
+                            div#customBtn.customGPlusSignIn
+                                span.icon
+                                span.buttonText Google
                     
                     .campo.acciones
                         if ruta === "iniciar-sesion"
@@ -40,4 +48,6 @@ mixin crearUsuarios(nombrePagina, ruta)
                             a(href="/restablecer-password") Reestablecer contraseña
                         else 
                             a(href=`/iniciar-sesion`) Inicia Sesion!
-                        
+            script(src="/dist/bundle.js")
+            script(src='https://apis.google.com/js/platform.js?onload=renderButton' async= defer)
+                

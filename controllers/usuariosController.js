@@ -10,10 +10,7 @@ exports.formCrearCuenta = (req, res, next)=>{
 }
 
 exports.formIniciarSesion= (req, res)=>{
-    res.render("iniciarSesion", {
-        nombrePagina: "Iniciar Sesion en UpTask",
-        ruta: "iniciar-sesion"
-    })
+    res.render("login");
 }
 
 exports.crearCuenta = async(req, res, next)=>{
@@ -38,7 +35,7 @@ exports.crearCuenta = async(req, res, next)=>{
         });
 
         req.flash("correcto", "El correo de activacion se ha enviado");
-        res.redirect("/iniciar-sesion");
+        res.redirect("/sign-in");
     } catch (error) {
         req.flash("error", error.errors.map(error => error.message));
         res.render("crearCuenta", {

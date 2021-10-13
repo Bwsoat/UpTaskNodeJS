@@ -1,0 +1,32 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet' href='/css/normalize.css')
+    link(rel='stylesheet' href='/css/app-login.css')
+    script(src='https://kit.fontawesome.com/6b4c519f3f.js' crossorigin='anonymous')
+    title login Node
+  body
+    .loginContainer
+      h1.title UpTask con Node JS
+      form.login-container(method='POST' action='/iniciar-sesion/')
+        .login-input
+            i.fas.fa-user
+            input#userName.input(type='text' name='userName' placeholder='Username')
+        .login-input
+            input#nickName.input(type='text' name='nickName' placeholder='NickName')
+        .login-input
+            i.far.fa-envelope
+            input#email(type="email" name="email" placeholder="Email")
+        .login-input
+            i.fas.fa-lock
+            input#userPassword(type="password" name="userPassword" placeholder="Password")
+
+        input.button(type='submit' value='create account')
+
+      footer
+        p Do you have an account?
+            span Sign Up
+        script(src="/dist/bundle.js")

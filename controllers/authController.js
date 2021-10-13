@@ -8,11 +8,21 @@ const enviarEmail = require("../handles/email");
 
 exports.autenticarUsuario = passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/iniciar-sesion",
+    failureRedirect: "/sign-in",
     failureFlash: true,
     badRequestMessage: "Ambos campos son obligatorios"
-})
-
+});
+exports.autenticarGoogle = passport.authenticate("google", { 
+    scope: ["profile", "email"]
+});
+/*
+exports.googleRedirect = passport.authenticate("google", {
+    successRedirect: "/",
+    failureRedirect: "/sign-in",
+    failureFlash: true,
+    badRequestMessage: "error"
+});
+*/
 exports.usuarioAutenticado = (req, res, next) => {
 
     //si el usuario esta autenticado, adelante
@@ -20,12 +30,12 @@ exports.usuarioAutenticado = (req, res, next) => {
         return next();
     }
     //Si no esta autenticado, redirigir al formulario
-    return res.redirect("/iniciar-sesion");
+    return res.redirect("/sign-in");
 }
 
 exports.cerrarSesion = (req, res) => {
     req.session.destroy(() =>{
-        res.redirect("/iniciar-sesion"); //al cerrar sesion nos lleva al login
+        res.redirect("/sign-in"); //al cerrar sesion nos lleva al login
     })
 }
 exports.enviarToken = async(req, res, next) => {
@@ -102,7 +112,7 @@ exports.restablecerPassword = async(req, res) => {
     usuario.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     usuario.token = null;
     usuario.expiracion = null;
-    res.redirect("/iniciar-sesion");
+    res.redirect("/sign-in");
 
     //Guardamos los cambios
     await usuario.save();
@@ -120,6 +130,6 @@ exports.activarCuenta = async(req, res)=> {
 
     //redireccionamos y enviamos un mensaje de confirmacion
     req.flash("correcto", "cuenta activada correntamente");
-    res.redirect("/iniciar-sesion");
+    res.redirect("/sign-in");
     
 }
