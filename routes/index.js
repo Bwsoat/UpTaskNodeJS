@@ -71,38 +71,38 @@ module.exports = function(){
     router.delete("/tareas/:id", 
         authController.usuarioAutenticado,
         tareaController.eliminarTarea);
+    /** 
+        Login UpTask
+    **/
 
-    //Agregar un nuevo usuario
-    router.get("/nueva-cuenta", usuarioController.formCrearCuenta);
-    router.post("/nueva-cuenta", usuarioController.crearCuenta);
+        //Sign - in
+        router.get("/sign-in", usuarioController.formSignIn);
+        router.post("/sign-in", authController.autenticarUsuario);
 
-    //Iniciar Sesion
-    router.get("/sign-in", usuarioController.formIniciarSesion);
-    router.post("/sign-in", authController.autenticarUsuario);
+        //Create a new account
+        router.get("/create-account", usuarioController.formCreateAccount);
+        router.post("/create-account", usuarioController.crearCuenta);
 
-    //Cerrar sesion
-    router.get("/cerrar-sesion", authController.cerrarSesion);
+        //Activate account
+        router.get("/activar-cuenta/:email", authController.activarCuenta);
 
-    //Reestablecer Contraseña
-    router.get("/restablecer-password", usuarioController.formRestablecerPassword);
-    router.post("/restablecer-password", authController.enviarToken);
+        //Reset Password
+        router.get("/reset-password", usuarioController.formResetPassword);
+        router.post("/reset-password", authController.enviarToken);
 
-    router.get("/restablecer-password/:token", authController.validarToken);
-    router.post("/restablecer-password/:token", authController.restablecerPassword);
+        router.get("/restablecer-password/:token", authController.validarToken);
+        router.post("/restablecer-password/:token", authController.restablecerPassword);
 
-    //Activar cuenta
-    router.get("/activar-cuenta/:email", authController.activarCuenta);
+        //Log - out
+        router.get("/cerrar-sesion", authController.cerrarSesion);
 
-    router.get("/auth/google", authController.autenticarGoogle);
-    router.get('/auth/google/redirect', 
-        passport.authenticate('google', { failureRedirect: '/sign-in' }),
-        function(req, res) {
-            // Successful authentication, redirect home.
-            res.redirect('/');
-     });
-    router.get("/create-account", (req, res)=>{
-        res.render("login/create-account")
-    });
+        router.get("/auth/google", authController.autenticarGoogle);
+        router.get('/auth/google/redirect', 
+            passport.authenticate('google', { failureRedirect: '/sign-in' }),
+            function(req, res) {
+                // Successful authentication, redirect home.
+                res.redirect('/');
+        });
     return router;
 
 }

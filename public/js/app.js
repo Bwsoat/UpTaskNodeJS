@@ -1,15 +1,16 @@
-import proyectos from "./modules/proyectos";
-
 import tareas from "./modules/tareas";
-
-import cerrarSesion from "./modules/cerrarSesion"
 
 import menuDesplegable from "./modules/menudesplegable"
 
-import googleBtn from "./modules/googleBtn";
-
 import {actualizarProgreso} from "./funciones/barraAvance";
+
+import {btnLoginGoogle, btnCerrarSesion, btnRegister, btnResetPassword, btnDeleteProyect} from "./modules/btnsController";
 
 document.addEventListener("DOMContentLoaded", ()=>{
     actualizarProgreso();
+    btnLoginGoogle();
+    btnCerrarSesion();
+    btnRegister();
+    btnResetPassword();
+    btnDeleteProyect();
 })

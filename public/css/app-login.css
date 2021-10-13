@@ -6,7 +6,7 @@
     --loginContainer-bg: #fafafa;
 }
 body {
-    height: 100vh;
+    height: 75vh;
     font-family: "poppins", sans-serif;
     background-image: linear-gradient(to top, #023c55 0%, #0782B7 100%);
 }
@@ -30,15 +30,24 @@ body {
     text-transform: capitalize;
     font-size: 1.5rem;
     height: 10%;
+    min-height: 10%;
     padding-top: 10px;
     margin-top: 0;
     overflow: hidden;
     background-color: var(--login--bg);
     color: aliceblue;
 }
-  /**
+
+/**
+    Or styles
+**/
+.separatorOr {
+
+}
+
+/**
     social login styles
-  **/
+**/
 .social-login{
     width: 100%;
     display: flex;
@@ -117,18 +126,39 @@ body {
     cursor: pointer;
 }
 /**
+    Register
+**/
+.register {
+    height: 75%;
+}
+
+/**
     responsive
 **/
-@media screen and (max-width:500px){
+@media screen and (max-width:500px) {
     .social-login{
         flex-direction: column;
         align-items: center;
         height: 30%;
     }
     .loginContainer {
-        margin: 6rem auto;
+        margin: 2rem auto;
         width: 70%;
-        height: 70%;
+        height: 90%;
+    }
+    .button {
+        font-size: 0.7rem;
+    }
+}
+@media screen and (max-width:372px) {
+    .button {
+        height: 2.0rem;
+        font-size: 0.5rem;
     }
 }
 
+@media screen and (max-height:515px) {
+    body {
+        height: 60%;
+    }
+}
