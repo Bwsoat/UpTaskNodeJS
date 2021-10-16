@@ -23,9 +23,9 @@ const db = require("./config/db");
 const cookieParser = require("cookie-parser");
 
 //importamos el modelo sin la necesitas de usar un const
-require("./models/Proyectos");
+require("./models/Proyects");
 require("./models/Tareas");
-require("./models/Usuarios");
+require("./models/Users");
 
 //usamos sync para crear nuestra tabla, authenticate para auntentificar la conexion
 db.sync()
@@ -68,7 +68,7 @@ app.use((req, res, next) =>{
     //usamos res.local para poder usar esta funcion en toda la aplicacion
     res.locals.vardump = helpers.vardump;
     res.locals.mensajes = req.flash();
-    res.locals.usuario = {...req.user} || null;
+    res.locals.user = {...req.user} || null;
     next();
 });
 

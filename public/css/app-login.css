@@ -105,6 +105,9 @@ body {
 .input:focus {
     border: none;
 }
+input:focus {
+    outline: none;
+  }
 .button{
     width: 50%;
     height: 3.125rem;
@@ -115,7 +118,7 @@ body {
     background-color: #023c55;
     text-transform: uppercase;
 }
-.loginContainer p {
+.loginContainer p:not(.textError, .separatorOr) {
     margin: 0;
     color: var(--button--br);
     font-size:0.7rem;
@@ -125,8 +128,54 @@ body {
     font-weight: 550;
     cursor: pointer;
 }
+
 /**
-    Register
+    Class Template Alerts
+**/
+.templateAlert {
+    width: 80%;
+    display: flex;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 0;
+    align-items: center;
+    padding-left: 20px;
+}
+
+/**
+    Class Error Message
+**/
+.principalError {
+    font-size: 2.5rem;
+    font-weight: 600;
+    height: 2.5rem;
+    color: aliceblue;
+    background-color: #fc0707;
+    font-size: 1rem;
+}
+
+
+
+.error {
+    font-size: 0.7rem;
+    font-weight: 600;
+    height: 2.5rem;
+    color: rgb(241, 21, 21);
+    background-color: rgba(247,139, 106, 0.2);
+}
+/**
+    Class Success Message
+**/
+.success {
+    font-weight: 600;
+    height: 2.5rem;
+    color: #08ff8c;
+    background-color: rgba(0, 245, 0, 0.2);
+    font-size: 1rem;
+}
+
+/**
+    Class Register
 **/
 .register {
     height: 75%;
@@ -157,7 +206,7 @@ body {
     }
 }
 
-@media screen and (max-height:515px) {
+@media screen and (max-height:500px) {
     body {
         height: 60%;
     }

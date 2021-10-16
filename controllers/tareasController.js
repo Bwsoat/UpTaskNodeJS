@@ -1,23 +1,23 @@
-const Proyectos = require("../models/Proyectos");
+const Proyects = require("../models/Proyects");
 const Tareas = require("../models/Tareas");
 
 exports.agregarTarea = async (req, res, next)=>{
-    //obtenemos el proyecto actual
-    const proyecto  = await Proyectos.findOne({ where: {url: req.params.url }});
+    //obtenemos el proyect actual
+    const proyect  = await Proyects.findOne({ where: {url: req.params.url }});
 
     // leer el valor del imput
     const {tarea} = req.body;
 
-    //estado 0 = incompleto y ID Proyecto
+    //estado 0 = incompleto y ID Proyect
     const estado = 0;
-    const proyectoId = proyecto.id;
+    const proyectId = proyect.id;
 
     //insertar en la base de datos
-    const resultado  = await Tareas.create({tarea, estado, proyectoId});
+    const resultado  = await Tareas.create({tarea, estado, proyectId});
     if(!resultado) next();
 
     //redireccionamos
-    res.redirect(`/proyectos/${proyecto.url}`);
+    res.redirect(`/proyects/${proyect.url}`);
 }
 
 

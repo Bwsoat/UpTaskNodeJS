@@ -4,7 +4,7 @@ import menuDesplegable from "./modules/menudesplegable"
 
 import {actualizarProgreso} from "./funciones/barraAvance";
 
-import {btnLoginGoogle, btnCerrarSesion, btnRegister, btnResetPassword, btnDeleteProyect} from "./modules/btnsController";
+import {btnLoginGoogle, btnCerrarSesion, btnRegister, btnResetPassword, btnDeleteProyect, btnSignIn} from "./modules/btnsController";
 
 document.addEventListener("DOMContentLoaded", ()=>{
     actualizarProgreso();
@@ -13,4 +13,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
     btnRegister();
     btnResetPassword();
     btnDeleteProyect();
+    btnSignIn();
 })

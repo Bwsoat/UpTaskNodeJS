@@ -1,0 +1,15 @@
+extends layout
+include mixins/crearProyecto
+
+block contenido
+    .contenido-principal
+        h1 #{nombrePagina}
+        //pre= vardump(proyecto)
+        //pug permite iterar sobre un arreglo
+        //iteramos en el array de errores que creamos en el controlador
+        //validamos que existe el error para evitar problemas
+        if errores
+            each error in errores
+                //le pasamos a error el nombre del objeto que esta almacenado en el array
+                .alerta.error= error.texto
+        +crearProyecto(proyecto)

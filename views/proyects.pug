@@ -4,11 +4,11 @@ block contenido
         h1 #{nombrePagina}
         div.listado-pendientes
             ul
-                if(proyectos.length)
-                    each proyecto in proyectos 
+                if(proyects.length)
+                    each proyect in proyects 
                         li 
                             p
-                                a(href=`/proyectos/${proyecto.url}`)=proyecto.nombre
+                                a(href=`/proyects/${proyect.url}`)=proyect.name
                             .acciones 
                                 i.fas.fa-trash
 

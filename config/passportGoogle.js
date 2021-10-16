@@ -4,7 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 //Referenciamos al modelo que vamos a autenticar
 
-const Usuarios = require("../models/Usuarios");
+const Users = require("../models/Users");
 
 passport.use(
   new GoogleStrategy({
@@ -15,33 +15,33 @@ passport.use(
       try {
         const email = profile._json.email;
         const picture = profile._json.picture;
-        const usuario = await Usuarios.findOne({where:{ 
+        const user = await Users.findOne({where:{ 
           email
          }})
-         if(!usuario){
-             await Usuarios.create({
+         if(!user){
+             await Users.create({
               email,
               activo: 1,
-              password: "undefine"
+              userPassword: "undefined"
             })
          }
-        return done(null, usuario);
+        return done(null, user);
       } catch (error) {
         console.log(error);
           return done(null, false, {
-          message : "esta cuenta no existe"
+          message : "this account doesn't exist"
         });
       }
     }
   )
 );
-//Serializar el usuario
-passport.serializeUser((usuario, callback) =>{
-    callback(null, usuario);
+//Serializar el user
+passport.serializeUser((user, callback) =>{
+    callback(null, user);
 })
 
-//Deserializar el usuario
-passport.deserializeUser((usuario, callback) =>{
-    callback(null, usuario);
+//Deserializar el user
+passport.deserializeUser((user, callback) =>{
+    callback(null, user);
 })
 module.exports = passport;

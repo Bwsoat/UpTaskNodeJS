@@ -4,7 +4,6 @@ const juice = require("juice");
 const htmlText = require("html-to-text");
 
 const emailConfig = require("../config/email");
-const Usuarios = require("../models/Usuarios");
 
 let transporter = nodemailer.createTransport({
     host: emailConfig.host,
@@ -21,17 +20,17 @@ transporter.verify().then(()=>{
     const html = pug.renderFile(`${__dirname}/../views/emails/${archivo}.pug`, opciones);
     return juice(html);
   }
-exports.enviar = async (opciones)=> {
+exports.send = async (opciones)=> {
     const html  = generarHTML(opciones.archivo, opciones);
     const text  = htmlText.htmlToText(html);
     await transporter.sendMail({
       from: "'UpTask' <no-reply@gmail.com>",
-      to: opciones.usuario.email,
+      to: opciones.user.email,
       subject: opciones.subject,
       text,
       html
     }).catch(function(e) {
-      console.log(e);
+      console.log("que quiere esta mierda");
       //res.status(404).json({ message: "something goes wrong" });
     });
   }

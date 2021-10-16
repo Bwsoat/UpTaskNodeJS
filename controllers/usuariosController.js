@@ -1,6 +1,6 @@
-//Importamos la base de datos: Usuarios
-const Usuarios = require("../models/Usuarios");
-const enviarEmail = require("../handles/email");
+//Importamos la base de datos: Users
+const Users = require("../models/Users");
+const sendEmail = require("../handles/email");
 
 exports.formSignIn= (req, res)=>{
     res.render("login/sign-in", {
@@ -15,36 +15,35 @@ exports.formCreateAccount = (req, res, next)=>{
 }
 
 
-exports.crearCuenta = async(req, res, next)=>{
-    const {email, password} = req.body;
-
+exports.CreateAccount = async(req, res, next)=>{
+    const {userName, email, userPassword} = req.body;
     try {
-        //Crear usuario
-        await Usuarios.create({email, password})
+        //CreateAccount
+        await Users.create({userName, email, userPassword})
 
-        //crear una url que nos mande a activar la cuenta
-        const activateUrl = `http://${req.headers.host}/activar-cuenta/${email}`;
-       //Preparamos el objeto para enviar un email
-       const usuario = {email};
-       await enviarEmail.enviar({
-            usuario,
-            subject: "activar cuenta",
+        //crear una url que nos mande a activar la account
+        const activateUrl = `http://${req.headers.host}/activate-account/${email}`;
+        //Preparamos el objeto para send un email
+       const user = {email};
+       await sendEmail.send({
+            user,
+            subject: "activate account",
             activateUrl,
-            archivo: "activar-cuenta"
+            archivo: "activate-account"
         }).catch( error =>{
-            console.log(error, "Error al enviar el email");
+            console.log(error, "Error to send email");
             next();
         });
 
-        req.flash("correcto", "El correo de activacion se ha enviado");
+        req.flash("success", "the email has been sent successfully");
         res.redirect("/sign-in");
     } catch (error) {
         req.flash("error", error.errors.map(error => error.message));
-        res.render("crearCuenta", {
+        res.render("login/create-account", {
             mensajes: req.flash(),
-            nombrePagina:"Crear un nuevo Usuario",
-            email: email,
-            ruta: "nueva-cuenta"
+            namePag:"Create Account",
+            email,
+            userName
         });
     }
 }

@@ -7,33 +7,41 @@ const db = require("../config/db");
 const bcrypt = require("bcryptjs");
 
 //importamos la base de datos con la que tiene relacion
-const proyectos = require("./Proyectos");
+const proyects = require("./Proyects");
 
-const Usuarios = db.define("usuarios", {
+const Users = db.define("users", {
     id: {
         type: sequelize.INTEGER(10),
         primaryKey: true,
         autoIncrement: true,
     },
+    userName: {
+        type: sequelize.STRING(30),
+        validate: {
+            notEmpty: {
+                msg: "can't have an empty username"
+            }
+        }
+    },
     email: {
         type: sequelize.STRING(60),
         validate: {
             isEmail: {
-                msg: "El correo no es valido"
+                msg: "invalid email address"
             },
            notEmpty: {
-                msg: "EL email no puede ir vacio"
+                msg: "can't have an empty email"
             }
         },
         unique: {
-            msg: "Ya hay una cuenta registrada con ese email"
+            msg: "An account with this email already exists"
         }
     },
-    password: {
+    userPassword: {
         type: sequelize.STRING(60),
         validate: {
             notEmpty: {
-                msg: "La contraseña no puede ir vacia"
+                msg: "can't have an empty password"
             }
         }
 
@@ -48,17 +56,17 @@ const Usuarios = db.define("usuarios", {
 },  
     {
     hooks:{
-        beforeCreate(usuario){
-            usuario.password = bcrypt.hashSync(usuario.password, bcrypt.genSaltSync(10));
+        beforeCreate(user){
+            user.userPassword = bcrypt.hashSync(user.userPassword, bcrypt.genSaltSync(10));
         }
     }
 });
 // Metodos personalizados
-Usuarios.prototype.verificarPassword = function(password){
+Users.prototype.verificarPassword = function(userPassword){
     //comparamos la contraseña ingresada con la almacenada en la base de datos
-    return bcrypt.compareSync(password, this.password);
+    return bcrypt.compareSync(userPassword, this.userPassword);
 }
 
-Usuarios.hasMany(proyectos);
+Users.hasMany(proyects);
 
-module.exports = Usuarios;
+module.exports = Users;

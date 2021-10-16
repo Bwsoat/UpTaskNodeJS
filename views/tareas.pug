@@ -1,9 +1,9 @@
 extends layout
 block contenido
     .contenido-principal
-        h1 #{nombrePagina} - #{proyecto.nombre}
+        h1 #{nombrePagina} - #{proyect.name}
         //TODO - Formulario aqui
-        form.agregar-tarea(action=`/proyectos/${proyecto.url}` method="POST" )
+        form.agregar-tarea(action=`/proyects/${proyect.url}` method="POST" )
             .campo
                 label(for="tarea") Tarea: 
                 input.nombre-tarea(type="text" name="tarea" placeholder="Nombre Tarea") 
@@ -34,7 +34,7 @@ block contenido
                 #porcentaje.porcentaje
         //acciones que se puenden realizar
         .contenedor-acciones
-            a(href=`/proyecto/editar/${proyecto.id}` class="boton" ) Editar Proyecto
+            a(href=`/proyect/editar/${proyect.id}` class="boton" ) Editar Proyecto
             //con data-proyecto-url hacemos referencia a la url del proyecto
-            button#eliminar-proyecto(data-proyecto-url=proyecto.url type="button" class="boton eliminar") Eliminar
+            button#eliminar-proyecto(data-proyect-url=proyect.url type="button" class="boton eliminar") Eliminar
 

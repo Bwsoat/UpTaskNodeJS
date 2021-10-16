@@ -2,8 +2,8 @@ const sequelize = require("sequelize");
 const slug = require("slug");
 const db = require("../config/db");
 
-//importamos Proyectos
-const proyectos= require("./Proyectos");
+//importamos Proyects
+const proyects= require("./Proyects");
 
 const Tareas = db.define("tareas", {
     id: {
@@ -15,5 +15,5 @@ const Tareas = db.define("tareas", {
     
     estado: sequelize.INTEGER(1)
 });
-Tareas.belongsTo(proyectos);
+Tareas.belongsTo(proyects);
 module.exports= Tareas;

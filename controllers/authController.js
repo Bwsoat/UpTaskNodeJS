@@ -1,12 +1,12 @@
 const passport = require("passport");
-const Usuarios = require("../models/Usuarios");
+const Users = require("../models/Users");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
-const enviarEmail = require("../handles/email");
+const sendEmail = require("../handles/email");
 
-exports.autenticarUsuario = passport.authenticate("local", {
+exports.autenticaruser = passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/sign-in",
     failureFlash: true,
@@ -23,9 +23,9 @@ exports.googleRedirect = passport.authenticate("google", {
     badRequestMessage: "error"
 });
 */
-exports.usuarioAutenticado = (req, res, next) => {
+exports.authenticatedUser = (req, res, next) => {
 
-    //si el usuario esta autenticado, adelante
+    //si el user esta autenticado, adelante
     if(req.isAuthenticated()){
         return next();
     }
@@ -39,32 +39,31 @@ exports.cerrarSesion = (req, res) => {
     })
 }
 exports.enviarToken = async(req, res, next) => {
-    //verificar si el usuario existe
+    //verificar si el user existe
     const {email} = req.body;
-    const usuario = await Usuarios.findOne({ where: { email }});
+    const user = await Users.findOne({ where: { email }});
     //Si no existe
-    if (!usuario){
-        req.flash("error", "Ese usuario no existe");
-        res.render("restablecer", {
-            nombrePagina: "Reestablecer Contraseña",
-            mensajes: req.flash(),
-            ruta: "restablecer-password"
+    if (!user){
+        req.flash("error", "Ese user no existe");
+        res.render("reset-password", {
+            namePag: "reset password",
+            mensajes: req.flash()
         })
     }
-    //si el usuario existe, generamos el token
-    usuario.token = crypto.randomBytes(20).toString("hex");
-    usuario.expiracion = Date.now() + 360000;
+    //si el user existe, generamos el token
+    user.token = crypto.randomBytes(20).toString("hex");
+    user.expiracion = Date.now() + 360000;
 
     //los guardamos en la base de datos
-    await usuario.save();
+    await user.save();
 
     //url de reset
 
-    const resetUrl = `http://${req.headers.host}/restablecer-password/${usuario.token}`;
+    const resetUrl = `http://${req.headers.host}/reset-password/${user.token}`;
 
     //Enviar el correo con el token
-    await enviarEmail.enviar({
-        usuario,
+    await sendEmail.send({
+        user,
         subject: "Password Reset",
         resetUrl,
         archivo: "resetPassword"
@@ -72,64 +71,74 @@ exports.enviarToken = async(req, res, next) => {
         console.log(e);
         //res.status(404).json({ message: "something goes wrong" });
       });
-    req.flash("correcto", "correo de restauracion enviado");
-    res.redirect("/restablecer-password");
+    req.flash("success", "correo de restauracion enviado");
+    res.redirect("/reset-password");
 }
 
 exports.validarToken = async(req, res) => {
-    const usuario = await Usuarios.findOne({
+    const user = await Users.findOne({
         where: {
             token: req.params.token
         }
     });
-    //Si el usuario no existe, redireccionar al restablecer contraseña
-    if(!usuario){
-        req.flash("error", "Usuario no valido");
-        res.redirect("/restablecer-password");
+    //Si el user no existe, redireccionar al restablecer contraseña
+    if(!user){
+        req.flash("error", "el user no existe, o expiro el tiempo de recuperacion");
+        res.redirect("/reset-password");
     }
 
     //formulario para resetear el password
-    res.render("resetPassword", {
-        nombrePagina : "Restablecer Contraseña"
+    res.render("login/new-password", {
+        namePag : "Type you new password"
     })
 }
 
 exports.restablecerPassword = async(req, res) => {
     //Verifica el token y la expiracion
-    const { password } = req.body;
-    const usuario = await Usuarios.findOne({ where: {
+    const { newPassword,repeatPassword } = req.body;
+    if(!(newPassword === repeatPassword)){
+        req.flash("error", "Las contraseñas no coinciden");
+        res.render("login/new-password", {
+            namePag : "Type you new password",
+            mensajes: req.flash()
+        })
+    }
+    const user = await Users.findOne({ where: {
         token: req.params.token,
         expiracion: {
             [Op.gte] : Date.now()
         }
     }});
+    console.log(user);
 
-    if(!usuario){
-        req.flash("error", "el usuario no existe, o expiro el tiempo de recuperacion");
-        res.render("/restablecer-password");
+    if(!user){
+        req.flash("error", "el user no existe, o expiro el tiempo de recuperacion");
+        res.redirect("/reset-password");
     }
     //hasheamos el nuevo password, eliminamos el token y la expiracion
-    usuario.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-    usuario.token = null;
-    usuario.expiracion = null;
-    res.redirect("/sign-in");
-
+    user.userPassword = bcrypt.hashSync(req.body.newPassword, bcrypt.genSaltSync(10));
+    user.token = null;
+    user.expiracion = null;
+    
     //Guardamos los cambios
-    await usuario.save();
+    await user.save();
+    
+    req.flash("success", "se restablecio la contraseña correctamente");
+    res.redirect("/sign-in");
 }
 
 exports.activarCuenta = async(req, res)=> {
-    const usuario = await Usuarios.findOne({
+    const user = await Users.findOne({
         where: {
             email: req.params.email
         }
     });
     //definimos y guardamos la activacion de la cuenta
-    usuario.activo = 1;
-    await usuario.save();
+    user.activo = 1;
 
     //redireccionamos y enviamos un mensaje de confirmacion
-    req.flash("correcto", "cuenta activada correntamente");
+    req.flash("success", "cuenta activada correntamente");
     res.redirect("/sign-in");
-    
+
+    await user.save();
 }

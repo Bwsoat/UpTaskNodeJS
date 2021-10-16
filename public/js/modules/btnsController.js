@@ -30,8 +30,8 @@ export const btnDeleteProyect = ()=> {
         //boton de eliminar
         btnEliminar.addEventListener("click", e =>{
             //hacemos referencia a la url que almacenamos en el boton
-            const urlProyecto = e.target.dataset.proyectoUrl;
-            swal.fire({
+            const proyectUrl = e.target.dataset.proyectoUrl;
+            Swal.fire({
                 title: "Estas seguro?",
                 text: "Los cambios no se podran deshacer!",
                 icon: "warning",
@@ -43,11 +43,11 @@ export const btnDeleteProyect = ()=> {
             }).then((result) => {
                 if (result.isConfirmed) {
                     //enviar peticion a axios
-                    const url =`${location.origin}/proyectos/${urlProyecto}`;
+                    const url =`${location.origin}/proyects/${proyectUrl}`;
 
-                    axios.delete(url, { params: {urlProyecto}})
+                    axios.delete(url, { params: {proyectUrl}})
                         .then(function(respuesta){
-                            swal.fire(
+                            Swal.fire(
                                 "Eliminado!",
                                 respuesta.data,
                                 "success"
@@ -58,7 +58,7 @@ export const btnDeleteProyect = ()=> {
                             }, 2000);
                         })
                         .catch(()=>{
-                            swal.fire({
+                            Swal.fire({
                                 icon:"error",
                                 title:"Hubo un error",
                                 text: "No se pudo eliminar el Proyecto"
@@ -96,6 +96,15 @@ export const btnLoginGoogle = ()=> {
     if(googleBtn){
         googleBtn.addEventListener("click",  e =>{
             window.location.href ="/auth/google";
+        })
+    }
+}
+
+export const btnSignIn = ()=> {
+    const btnSignIn = document.querySelector("#SignIn");
+    if(btnSignIn){
+        btnSignIn.addEventListener("click",  e =>{
+            window.location.href ="/sign-in";
         })
     }
 }

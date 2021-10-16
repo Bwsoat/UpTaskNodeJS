@@ -3,7 +3,7 @@ const localStrategy = require("passport-local").Strategy;
 
 //Referenciamos al modelo que vamos a autenticar
 
-const Usuarios = require("../models/Usuarios");
+const Users = require("../models/Users");
 
 //local Strategy -login con credenciales propios (usuario y contraseña)
 passport.use(
@@ -16,7 +16,7 @@ passport.use(
         async (email, password, done) =>{
             try {
                 //buscamos el usuario en la base de datos
-                 const usuario = await Usuarios.findOne({
+                 const usuario = await Users.findOne({
                      where: { email,
                               activo: 1    
                     }

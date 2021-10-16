@@ -11,14 +11,20 @@ html(lang='en')
   body
     .loginContainer
       h1.title #{namePag}
+      if locals.mensajes
+        each categoria in Object.keys(locals.mensajes)
+          each  error in mensajes[categoria]
+            .templateAlert(class=`${categoria}`)
+              i.fas.fa-exclamation-triangle
+              p.textError= error
       form.login-container(method='POST' action='/sign-in')
         .login-input
           i.fas.fa-user
           input#userName.input(type='text' name='userName' placeholder='Username')
         .login-input
           i.fas.fa-lock
-          input#password.input(type='password' name='password' placeholder='Password')
-        p Forgot your password?
+          input#password.input(type='password' name='userPassword' placeholder='Password')
+        p.link Forgot your password?
             span#resetPassword Click here
 
         input.button(type='submit' value='SIGN IN')
@@ -35,6 +41,6 @@ html(lang='en')
           span Twitter
           
       footer
-        p Don't have an account?
+        p.link Don't have an account?
             span#register Sign Up
         script(src="/dist/bundle.js")

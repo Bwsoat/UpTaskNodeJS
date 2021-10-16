@@ -23,7 +23,7 @@ html(lang="es")
                             i.fas.fa-sign-in-alt
                 div#menu-items
                     div.item
-                        a(href="/nuevo-proyecto")
+                        a(href="/nuevo-proyect")
                             div.icon
                                 i.fas.fa-plus
                             div.title 
@@ -32,17 +32,17 @@ html(lang="es")
                     div(class="item separator")
 
                     div.item
-                        a(href="/proyectos")
+                        a(href="/proyects")
                             div.icon 
                                 i.fas.fa-folder
                             div.title
                                 span Proyectos
                             div#lista-proyectos.lista-proyectos
                                 ul
-                                    if(proyectos.length)
-                                        each proyecto in proyectos
+                                    if(proyects.length)
+                                        each proyect in proyects
                                             li
-                                                a(href=`/proyectos/${proyecto.url}`)=proyecto.nombre
+                                                a(href=`/proyects/${proyect.url}`)=proyect.name
         
             block contenido
                  

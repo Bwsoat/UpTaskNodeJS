@@ -16,60 +16,60 @@ const authController = require("../controllers/authController");
 module.exports = function(){
     //ruta para el home
     router.get("/",
-        authController.usuarioAutenticado,
-        proyectoController.proyectosHome);
+        authController.authenticatedUser,
+        proyectoController.proyectsHome);
     //ruta para la vista nuevo-proyecto
-    router.get("/nuevo-proyecto", 
-        authController.usuarioAutenticado,
-        proyectoController.proyectoNuevo);
+    router.get("/nuevo-proyect", 
+        authController.authenticatedUser,
+        proyectoController.proyectNuevo);
     
     
     //ruta para el post nuevo-proyecto
-    router.post("/nuevo-proyecto", 
+    router.post("/nuevo-proyect", 
     //validamos si nombre no esta vacio  y con trim eliminamos los espacios en blanco
     //.escape para evitar caracteres raros
-        authController.usuarioAutenticado,    
+        authController.authenticatedUser,    
         body("nombre").not().isEmpty().trim().escape(),
-        proyectoController.nuevoProyecto);
+        proyectoController.nuevoProyect);
 
     //Listar Proyecto
-    router.get("/proyectos/:url", 
-        authController.usuarioAutenticado,
-        proyectoController.proyectoPorUrl);
+    router.get("/proyects/:url", 
+        authController.authenticatedUser,
+        proyectoController.proyectForUrl);
     
     //Todos los proyectos
-    router.get("/proyectos", 
-    authController.usuarioAutenticado,
-    proyectoController.paginaProyectos);
+    router.get("/proyects", 
+    authController.authenticatedUser,
+    proyectoController.paginaProyects);
     
     //Atualizar Proyecto
-    router.get("/proyecto/editar/:id", 
-        authController.usuarioAutenticado,
+    router.get("/proyect/editar/:id", 
+        authController.authenticatedUser,
         proyectoController.editarFormulario);
 
-    router.post("/nuevo-proyecto/:id",
-    authController.usuarioAutenticado,
-    body("nombre").not().isEmpty().trim().escape(),
-    proyectoController.actualizarProyecto);
+    router.post("/nuevo-proyect/:id",
+    authController.authenticatedUser,
+    body("name").not().isEmpty().trim().escape(),
+    proyectoController.actualizarProyect);
 
     //Eliminar Proyecto
-    router.delete("/proyectos/:url", 
-        authController.usuarioAutenticado,
-        proyectoController.eliminarProyecto);
+    router.delete("/proyects/:url", 
+        authController.authenticatedUser,
+        proyectoController.eliminarProyect);
     //Agregar tarea
-    router.post("/proyectos/:url",
-        authController.usuarioAutenticado,    
-        body("nombre").not().isEmpty().trim().escape(),
+    router.post("/proyects/:url",
+        authController.authenticatedUser,    
+        body("name").not().isEmpty().trim().escape(),
         tareaController.agregarTarea);
 
     //Actualizar Tarea - patch nos permite editar una parte de la tabla
     router.patch("/tareas/:id", 
-        authController.usuarioAutenticado,
+        authController.authenticatedUser,
         tareaController.cambiarEstadoTarea);
 
     //Eliminar tarea
     router.delete("/tareas/:id", 
-        authController.usuarioAutenticado,
+        authController.authenticatedUser,
         tareaController.eliminarTarea);
     /** 
         Login UpTask
@@ -77,21 +77,21 @@ module.exports = function(){
 
         //Sign - in
         router.get("/sign-in", usuarioController.formSignIn);
-        router.post("/sign-in", authController.autenticarUsuario);
+        router.post("/sign-in", authController.authenticatedUser);
 
         //Create a new account
         router.get("/create-account", usuarioController.formCreateAccount);
-        router.post("/create-account", usuarioController.crearCuenta);
+        router.post("/create-account", usuarioController.CreateAccount);
 
         //Activate account
-        router.get("/activar-cuenta/:email", authController.activarCuenta);
+        router.get("/activate-account/:email", authController.activarCuenta);
 
         //Reset Password
         router.get("/reset-password", usuarioController.formResetPassword);
         router.post("/reset-password", authController.enviarToken);
 
-        router.get("/restablecer-password/:token", authController.validarToken);
-        router.post("/restablecer-password/:token", authController.restablecerPassword);
+        router.get("/reset-password/:token", authController.validarToken);
+        router.post("/reset-password/:token", authController.restablecerPassword);
 
         //Log - out
         router.get("/cerrar-sesion", authController.cerrarSesion);
