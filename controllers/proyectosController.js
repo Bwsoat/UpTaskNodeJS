@@ -6,11 +6,15 @@ const Tareas = require("../models/Tareas");
 //exportamos el controlador
 exports.proyectsHome = async(req, res)=>{
     const userId = res.locals.user.id;
+    const userName = res.locals.user.userName;
+    const userAvatar = res.locals.user.userAvatar;
     const proyects = await models.findAll({ where: { userId }})
         .catch();
     res.render("index", {
-        namePagina : "Proyects",
-        proyects
+        namePag : "Proyects",
+        proyects,
+        userName,
+        userAvatar
     });
 }
 //exportamos el controlador para mostrar la vista nuevo-proyect

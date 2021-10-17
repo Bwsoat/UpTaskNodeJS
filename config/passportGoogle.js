@@ -14,15 +14,18 @@ passport.use(
   }, async(accessToken, refreshToken, profile, done) => {
       try {
         const email = profile._json.email;
+        const userName = profile._json.name;
         const picture = profile._json.picture;
         const user = await Users.findOne({where:{ 
           email
          }})
          if(!user){
              await Users.create({
+              userName : userName,
               email,
               activo: 1,
-              userPassword: "undefined"
+              userPassword: "undefined",
+              userAvatar: picture
             })
          }
         return done(null, user);

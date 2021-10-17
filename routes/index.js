@@ -77,7 +77,7 @@ module.exports = function(){
 
         //Sign - in
         router.get("/sign-in", usuarioController.formSignIn);
-        router.post("/sign-in", authController.authenticatedUser);
+        router.post("/sign-in", authController.authenticateUser);
 
         //Create a new account
         router.get("/create-account", usuarioController.formCreateAccount);

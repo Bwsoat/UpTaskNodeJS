@@ -38,13 +38,16 @@ const Users = db.define("users", {
         }
     },
     userPassword: {
-        type: sequelize.STRING(60),
+        type: sequelize.STRING(100),
         validate: {
             notEmpty: {
                 msg: "can't have an empty password"
             }
         }
 
+    },
+    userAvatar: {
+        type: sequelize.STRING(100)
     },
     activo: {
         type: sequelize.INTEGER,
