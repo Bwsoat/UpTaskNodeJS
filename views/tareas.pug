@@ -1,7 +1,7 @@
 extends layout
 block contenido
     .contenido-principal
-        h1 #{nombrePagina} - #{proyect.name}
+        h1 #{namePag} - #{proyect.name}
         //TODO - Formulario aqui
         form.agregar-tarea(action=`/proyects/${proyect.url}` method="POST" )
             .campo
@@ -37,4 +37,4 @@ block contenido
             a(href=`/proyect/editar/${proyect.id}` class="boton" ) Editar Proyecto
             //con data-proyecto-url hacemos referencia a la url del proyecto
             button#eliminar-proyecto(data-proyect-url=proyect.url type="button" class="boton eliminar") Eliminar
-
+        

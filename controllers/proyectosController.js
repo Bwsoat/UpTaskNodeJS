@@ -20,11 +20,15 @@ exports.proyectsHome = async(req, res)=>{
 //exportamos el controlador para mostrar la vista nuevo-proyect
 exports.proyectNuevo = async(req, res)=>{
     const userId = res.locals.user.id;
+    const userName = res.locals.user.userName;
+    const userAvatar = res.locals.user.userAvatar;
     const proyects = await models.findAll({ where: { userId }})
         .catch();
     res.render("nuevo-proyect", {
         namePagina : "Nuevo Proyect",
-        proyects
+        proyects,
+        userName,
+        userAvatar
     });
 }
 
@@ -62,6 +66,8 @@ exports.nuevoProyect = async (req, res)=>{
 }
 exports.proyectForUrl = async(req, res, next)=>{
     //mostramos solo los proyects que el user atenticado creo
+    const userName = res.locals.user.userName;
+    const userAvatar = res.locals.user.userAvatar;
     const userId = res.locals.user.id;
     const proyectsPromise = models.findAll({ where: { userId }})
     const proyectPromise = models.findOne({
@@ -80,11 +86,14 @@ exports.proyectForUrl = async(req, res, next)=>{
     });
 
     if(!proyect)return next()
+
     res.render("tareas", {
-        namePagina:`Tareas del Proyect`, 
+        namePag:`Tareas del Proyect`, 
         proyects,
         proyect,
-        tareas
+        tareas,
+        userName,
+        userAvatar
     });
 }
 
@@ -133,9 +142,8 @@ exports.actualizarProyect = async (req, res)=>{
 exports.eliminarProyect = async (req, res, next)=>{
     //req, params o query para leer los datos que mandamos al servidor
     //console.log(req);
-    const {urlProyect} = req.query;
-
-    const resultado = await models.destroy({where:{url: urlProyect}});
+    const {proyectUrl} = req.query;
+    const resultado = await models.destroy({where:{ url: proyectUrl }});
     if(!resultado) return next();
     //esto es lo que enviamos como respuesta a la eliminacion
     res.send("El proyect se ha eliminado");
@@ -143,9 +151,13 @@ exports.eliminarProyect = async (req, res, next)=>{
 
 exports.paginaProyects = async(req, res, next)=>{
     const userId = res.locals.user.id;
+    const userName = res.locals.user.userName;
+    const userAvatar = res.locals.user.userAvatar;
     const proyects = await models.findAll({ where: { userId }});
     res.render("proyects", {
-        namePagina: "Proyects",
-        proyects
+        namePag: "Proyects",
+        proyects,
+        userAvatar,
+        userName
     });
 }

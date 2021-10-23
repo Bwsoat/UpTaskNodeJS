@@ -30,7 +30,7 @@ export const btnDeleteProyect = ()=> {
         //boton de eliminar
         btnEliminar.addEventListener("click", e =>{
             //hacemos referencia a la url que almacenamos en el boton
-            const proyectUrl = e.target.dataset.proyectoUrl;
+            const proyectUrl = e.target.dataset.proyectUrl;
             Swal.fire({
                 title: "Estas seguro?",
                 text: "Los cambios no se podran deshacer!",
@@ -44,7 +44,7 @@ export const btnDeleteProyect = ()=> {
                 if (result.isConfirmed) {
                     //enviar peticion a axios
                     const url =`${location.origin}/proyects/${proyectUrl}`;
-
+                    console.log(`${location.origin}/proyects/${proyectUrl}`);
                     axios.delete(url, { params: {proyectUrl}})
                         .then(function(respuesta){
                             Swal.fire(
