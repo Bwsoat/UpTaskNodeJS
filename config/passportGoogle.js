@@ -1,5 +1,4 @@
 const passport = require("passport");
-require("dotenv").config({ path: "variables.env" });
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 //Referenciamos al modelo que vamos a autenticar
@@ -8,8 +7,8 @@ const Users = require("../models/Users");
 
 passport.use(
   new GoogleStrategy({
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: "836700723282-3blmrknqqms84e81o4nrllmdfgc010r8.apps.googleusercontent.com",
+      clientSecret: "8PMZyjL4Xc04QkxvwrnEISN5",
       callbackURL: '/auth/google/redirect'
   }, async(accessToken, refreshToken, profile, done) => {
       try {
