@@ -100,18 +100,24 @@ exports.proyectForUrl = async(req, res, next)=>{
 exports.editarFormulario = async(req, res)=>{
     //mostramos solo los proyects que el user atenticado creo
     const userId = res.locals.user.id;
+    const userName = res.locals.user.userName;
+    const userAvatar = res.locals.user.userAvatar;
+
+
     const proyectsPromise = models.findAll({ where: { userId }})
     const proyectPromise = models.findOne({
         where:{
-            id: req.params.id
+            id: userId
         }
     });
     const [proyects, proyect] = await Promise.all([proyectsPromise, proyectPromise]);
     //renderiza la vista
     res.render("nuevo-proyect", {
-        namePag:"hola?", 
+        namePag:"Editar Nombre del Proyecto", 
         proyects,
-        proyect
+        proyect,
+        userName,
+        userAvatar
     });
 
 }
